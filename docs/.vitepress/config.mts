@@ -41,6 +41,70 @@ export default defineConfig({
             { text: 'HTML Testing', link: '/html#html-testing' }
           ]
         }
+      ],
+      '/css': [
+        {
+          text: 'CSS Standards',
+          items: [
+            { text: 'Vite Build System', link: '/css#vite-build-system' },
+            { text: 'BEM Methodology', link: '/css#bem-methodology' },
+            { text: 'CSS Variables', link: '/css#css-variables' },
+            { text: 'Units & Responsive Design', link: '/css#units--responsive-design' },
+            { text: 'Media Queries Breakpoints', link: '/css#media-queries-breakpoints' },
+            { text: 'Hover States', link: '/css#hover-states' },
+            { text: 'CSS Best Practices', link: '/css#css-best-practices' },
+            { text: 'Clamp Generator', link: '/css#clamp-generator' },
+            { text: 'CSS Testing', link: '/css#css-testing' },
+            { text: 'Production', link: '/css#production' }
+          ]
+        }
+      ],
+      '/javascript': [
+        {
+          text: 'JavaScript Standards',
+          items: [
+            { text: 'Vite Build System', link: '/javascript#vite-build-system' },
+            { text: 'Component Pattern', link: '/javascript#component-pattern' },
+            { text: 'IIFE', link: '/javascript#iife-immediately-invoked-function-expression' },
+            { text: 'DOMContentLoaded', link: '/javascript#domcontentloaded' },
+            { text: 'Accessibility', link: '/javascript#accessibility' },
+            { text: 'Error Handling', link: '/javascript#error-handling' },
+            { text: 'Event Handling & Performance', link: '/javascript#event-handling--performance' },
+            { text: 'DOM & Initialization Rules', link: '/javascript#dom--initialization-rules' },
+            { text: 'Approved Libraries', link: '/javascript#approved-libraries' },
+            { text: 'Production', link: '/javascript#production' }
+          ]
+        }
+      ],
+      '/wordpress': [
+        {
+          text: 'WordPress Standards',
+          items: [
+            { text: 'Theme Architecture', link: '/wordpress#theme-architecture' },
+            { text: 'Global Components', link: '/wordpress#global-components' },
+            { text: 'Assets Management', link: '/wordpress#assets-management' },
+            { text: 'ACF PRO Integration', link: '/wordpress#acf-pro-integration' },
+            { text: 'Security: Data Sanitization', link: '/wordpress#security-data-sanitization' },
+            { text: 'Plugins Policy', link: '/wordpress#plugins-policy' },
+            { text: 'Deployment Protocol', link: '/wordpress#deployment-protocol' },
+            { text: 'Email Delivery', link: '/wordpress#email-delivery' },
+            { text: 'Maintenance', link: '/wordpress#maintenance' }
+          ]
+        }
+      ],
+      '/seo': [
+        {
+          text: 'SEO Standards',
+          items: [
+            { text: 'Principles', link: '/seo#principles' },
+            { text: 'Indexing & Crawlability', link: '/seo#indexing--crawlability' },
+            { text: 'Structure & Semantics', link: '/seo#structure--semantics' },
+            { text: 'Implementation Patterns', link: '/seo#implementation-patterns' },
+            { text: 'Performance & Core Web Vitals', link: '/seo#performance--core-web-vitals' },
+            { text: 'Metadata & Structured Data', link: '/seo#metadata--structured-data' },
+            { text: 'Mobile Adaptation', link: '/seo#mobile-adaptation' }
+          ]
+        }
       ]
     },
 

@@ -30,59 +30,60 @@ hero:
 <div class="topic-section">
   <h2><a href="/css">CSS</a></h2>
   <ul>
-    <li>Vite Build System</li>
-    <li>BEM Methodology</li>
-    <li>CSS Variables</li>
-    <li>Units & Responsive Design</li>
-    <li>Media Queries Breakpoints</li>
-    <li>Hover States</li>
-    <li>CSS Best Practices</li>
-    <li>Clamp Generator</li>
-    <li>CSS Testing</li>
-    <li>Production</li>
+    <li><a href="/css#vite-build-system">Vite Build System</a></li>
+    <li><a href="/css#bem-methodology">BEM Methodology</a></li>
+    <li><a href="/css#css-variables">CSS Variables</a></li>
+    <li><a href="/css#units--responsive-design">Units & Responsive Design</a></li>
+    <li><a href="/css#media-queries-breakpoints">Media Queries Breakpoints</a></li>
+    <li><a href="/css#hover-states">Hover States</a></li>
+    <li><a href="/css#css-best-practices">CSS Best Practices</a></li>
+    <li><a href="/css#clamp-generator">Clamp Generator</a></li>
+    <li><a href="/css#css-testing">CSS Testing</a></li>
+    <li><a href="/css#production">Production</a></li>
   </ul>
 </div>
 
 <div class="topic-section">
   <h2><a href="/javascript">JavaScript</a></h2>
   <ul>
-    <li>Vite Build System</li>
-    <li>Component Pattern</li>
-    <li>IIFE</li>
-    <li>DOMContentLoaded</li>
-    <li>Accessibility</li>
-    <li>Error Handling</li>
-    <li>Event Handling & Performance</li>
-    <li>DOM & Initialization Rules</li>
-    <li>Approved Libraries</li>
-    <li>Production</li>
+    <li><a href="/javascript#vite-build-system">Vite Build System</a></li>
+    <li><a href="/javascript#component-pattern">Component Pattern</a></li>
+    <li><a href="/javascript#iife-immediately-invoked-function-expression">IIFE</a></li>
+    <li><a href="/javascript#domcontentloaded">DOMContentLoaded</a></li>
+    <li><a href="/javascript#accessibility">Accessibility</a></li>
+    <li><a href="/javascript#error-handling">Error Handling</a></li>
+    <li><a href="/javascript#event-handling--performance">Event Handling & Performance</a></li>
+    <li><a href="/javascript#dom--initialization-rules">DOM & Initialization Rules</a></li>
+    <li><a href="/javascript#approved-libraries">Approved Libraries</a></li>
+    <li><a href="/javascript#production">Production</a></li>
   </ul>
 </div>
 
 <div class="topic-section">
   <h2><a href="/wordpress">WordPress</a></h2>
   <ul>
-    <li>Theme Architecture</li>
-    <li>Assets Management</li>
-    <li>ACF PRO Integration</li>
-    <li>Security: Data Sanitization</li>
-    <li>Plugins Policy</li>
-    <li>Deployment Protocol</li>
-    <li>Email Delivery</li>
-    <li>Maintenance</li>
+    <li><a href="/wordpress#theme-architecture">Theme Architecture</a></li>
+    <li><a href="/wordpress#global-components">Global Components</a></li>
+    <li><a href="/wordpress#assets-management">Assets Management</a></li>
+    <li><a href="/wordpress#acf-pro-integration">ACF PRO Integration</a></li>
+    <li><a href="/wordpress#security-data-sanitization">Security: Data Sanitization</a></li>
+    <li><a href="/wordpress#plugins-policy">Plugins Policy</a></li>
+    <li><a href="/wordpress#deployment-protocol">Deployment Protocol</a></li>
+    <li><a href="/wordpress#email-delivery">Email Delivery</a></li>
+    <li><a href="/wordpress#maintenance">Maintenance</a></li>
   </ul>
 </div>
 
 <div class="topic-section">
   <h2><a href="/seo">SEO</a></h2>
   <ul>
-    <li>Principles</li>
-    <li>Indexing & Crawlability</li>
-    <li>Structure & Semantics</li>
-    <li>Implementation Patterns</li>
-    <li>Performance & Core Web Vitals</li>
-    <li>Metadata & Structured Data</li>
-    <li>Mobile Adaptation</li>
+    <li><a href="/seo#principles">Principles</a></li>
+    <li><a href="/seo#indexing--crawlability">Indexing & Crawlability</a></li>
+    <li><a href="/seo#structure--semantics">Structure & Semantics</a></li>
+    <li><a href="/seo#implementation-patterns">Implementation Patterns</a></li>
+    <li><a href="/seo#performance--core-web-vitals">Performance & Core Web Vitals</a></li>
+    <li><a href="/seo#metadata--structured-data">Metadata & Structured Data</a></li>
+    <li><a href="/seo#mobile-adaptation">Mobile Adaptation</a></li>
   </ul>
 </div>
 
