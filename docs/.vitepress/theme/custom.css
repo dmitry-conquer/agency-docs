@@ -1,0 +1,322 @@
+/* Agency color palette */
+:root {
+  --agency-red: #E63946;
+  --agency-red-dark: #C1121F;
+  --agency-blue: #1D3557;
+  --agency-blue-dark: #14213D;
+  --agency-blue-light: #457B9D;
+}
+
+/* Override VitePress brand colors */
+:root {
+  --vp-c-brand: var(--agency-red);
+  --vp-c-brand-1: var(--agency-red);
+  --vp-c-brand-2: var(--agency-red-dark);
+  --vp-c-brand-3: var(--agency-red-dark);
+  --vp-c-brand-soft: #ffffff;
+}
+
+/* Badge styles */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--agency-red);
+  color: #ffffff;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Code block improvements */
+.vp-code-group {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* List improvements */
+.vp-doc ul li {
+  line-height: 1.8;
+}
+
+.vp-doc ul li code {
+  background: var(--vp-c-bg-soft);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+/* Section spacing */
+.vp-doc h2 {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.vp-doc h3 {
+  margin-top: 2rem;
+}
+
+/* Light theme only - headings */
+:root:not(.dark) .vp-doc h2 {
+  color: var(--agency-blue);
+}
+
+:root:not(.dark) .vp-doc h3 {
+  color: var(--agency-blue-dark);
+}
+
+/* Example sections */
+.vp-doc h3 + p {
+  margin-top: 1rem;
+}
+
+/* Link improvements */
+.vp-doc a {
+  color: var(--agency-red);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.vp-doc a:hover {
+  color: var(--agency-red-dark);
+  text-decoration: underline;
+}
+
+/* Code example headers */
+.vp-doc h4 {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+}
+
+/* Home page topics */
+.home-topics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem 2rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.home-topics .topic-section {
+  border-top: 2px solid var(--agency-red);
+  padding-top: 1.5rem;
+}
+
+.home-topics .topic-section h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.home-topics .topic-section h2 a {
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+}
+
+.home-topics .topic-section h2 a:hover {
+  color: var(--vp-c-text-1);
+  text-decoration: underline;
+}
+
+.home-topics .topic-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home-topics .topic-section li {
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--vp-c-text-1);
+}
+
+.home-topics .topic-section a {
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+}
+
+.home-topics .topic-section a:hover {
+  color: var(--vp-c-text-1);
+  text-decoration: underline;
+}
+
+/* Navigation and header styling */
+.VPNavBar {
+  border-bottom: 1px solid var(--agency-blue);
+}
+
+/* Hide logo */
+.VPNavBarTitle {
+  display: none;
+}
+
+.VPNavBarMenuLink {
+  color: var(--vp-c-text-1);
+}
+
+.VPNavBarMenuLink:hover {
+  color: var(--agency-red);
+}
+
+.VPNavBarMenuLink.active {
+  color: var(--agency-red);
+}
+
+/* Sidebar styling */
+.VPSidebarItem.level-1 > .item > .text {
+  color: var(--agency-blue);
+  font-weight: 600;
+}
+
+.VPSidebarItem.level-2 > .item > .text {
+  color: var(--vp-c-text-1);
+}
+
+.VPSidebarItem.level-2 > .item.is-active > .text {
+  color: var(--agency-red);
+}
+
+/* Hero section */
+.VPHero .name {
+  color: var(--agency-red) !important;
+}
+
+.VPHero .text {
+  color: var(--vp-c-text-1);
+}
+
+.VPHero .tagline {
+  color: var(--vp-c-text-2);
+}
+
+/* Dark theme - Hero section */
+.dark .VPHero .text {
+  color: #E8E8E8 !important;
+}
+
+.dark .VPHero .tagline {
+  color: #E8E8E8 !important;
+}
+
+/* Buttons */
+.VPButton.brand {
+  background: var(--agency-red);
+  border-color: var(--agency-red);
+}
+
+.VPButton.brand:hover {
+  background: var(--agency-red-dark);
+  border-color: var(--agency-red-dark);
+}
+
+/* Code blocks */
+.vp-code-group .tabs {
+  background: var(--agency-blue);
+}
+
+.vp-code-group .tabs .tab.active {
+  color: #ffffff;
+  border-bottom-color: var(--agency-red);
+}
+
+/* Search */
+.VPLocalSearchBox .result {
+  border-color: var(--agency-blue);
+}
+
+.VPLocalSearchBox .result:hover {
+  border-color: var(--agency-red);
+}
+
+/* Hide footer */
+.VPFooter {
+  display: none;
+}
+
+/* Dark mode - only red accent color */
+.dark .vp-doc a {
+  color: var(--agency-red);
+}
+
+.dark .vp-doc a:hover {
+  color: var(--agency-red-dark);
+}
+
+.dark .home-topics .topic-section {
+  border-top-color: var(--agency-red);
+}
+
+.dark .home-topics .topic-section h2 {
+  color: #E8E8E8 !important;
+}
+
+.dark .home-topics .topic-section h2 a {
+  color: #E8E8E8 !important;
+}
+
+.dark .home-topics .topic-section h2 a:hover {
+  color: #E8E8E8 !important;
+}
+
+.dark .home-topics .topic-section li {
+  color: #E8E8E8 !important;
+}
+
+.dark .home-topics .topic-section a {
+  color: #E8E8E8 !important;
+}
+
+.dark .home-topics .topic-section a:hover {
+  color: #E8E8E8 !important;
+}
+
+/* Override global link styles for home page in dark mode */
+.dark .home-topics .vp-doc a {
+  color: #E8E8E8 !important;
+}
+
+.dark .VPNavBarMenuLink:hover {
+  color: var(--agency-red);
+}
+
+.dark .VPNavBarMenuLink.active {
+  color: var(--agency-red);
+}
+
+.dark .VPSidebarItem.level-2 > .item.is-active > .text {
+  color: var(--agency-red);
+}
+
+.dark .badge {
+  background: var(--agency-red);
+  color: #ffffff;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .home-topics {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+}
+
+/* Tablet responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .home-topics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
