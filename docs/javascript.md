@@ -1,13 +1,13 @@
 ---
 layout: doc
-title: JavaScript Standards & Best Practices
+title: Standards & Best Practices
 description: Vite build system, component patterns, IIFE, DOMContentLoaded, accessibility, error handling, event handling & performance, DOM & initialization rules, approved libraries, and production optimization.
 outline: deep
 ---
 
-# JavaScript Standards & Best Practices
-
 <div class="badge">JavaScript</div>
+
+# Standards & Best Practices
 
 Vite build system, component patterns, IIFE, DOMContentLoaded, accessibility, error handling, event handling & performance, DOM & initialization rules, approved libraries, and production optimization.
 

@@ -1,13 +1,13 @@
 ---
 layout: doc
-title: CSS Standards & Best Practices
+title: Standards & Best Practices
 description: Vite build system, BEM methodology, CSS variables, responsive design, units, media queries breakpoints, hover states, best practices, clamp generator, CSS testing, and production standards.
 outline: deep
 ---
 
-# CSS Standards & Best Practices
-
 <div class="badge">CSS</div>
+
+# Standards & Best Practices
 
 Vite build system, BEM methodology, CSS variables, responsive design, units, media queries breakpoints, hover states, best practices, clamp generator, CSS testing, and production standards.
 

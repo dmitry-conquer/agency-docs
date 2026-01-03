@@ -1,13 +1,13 @@
 ---
 layout: doc
-title: WordPress Development Standards
+title: Development Standards
 description: Theme architecture, assets management, ACF PRO integration, security & data sanitization, plugins policy, deployment protocol, email delivery, and maintenance standards.
 outline: deep
 ---
 
-# WordPress Development Standards
-
 <div class="badge">WordPress</div>
+
+# Development Standards
 
 Theme architecture, assets management, ACF PRO integration, security & data sanitization, plugins policy, deployment protocol, email delivery, and maintenance standards.
 

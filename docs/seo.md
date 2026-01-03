@@ -1,13 +1,13 @@
 ---
 layout: doc
-title: SEO Best Practices & Optimization
+title: Best Practices & Optimization
 description: Indexing & crawlability, structure & semantics, implementation patterns, performance & Core Web Vitals, metadata & structured data, mobile adaptation, and image optimization.
 outline: deep
 ---
 
-# SEO Best Practices & Optimization
-
 <div class="badge">SEO</div>
+
+# Best Practices & Optimization
 
 Indexing & crawlability, structure & semantics, implementation patterns, performance & Core Web Vitals, metadata & structured data, mobile adaptation, and image optimization.
 
