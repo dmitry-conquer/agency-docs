@@ -603,26 +603,7 @@ All CSS files deployed to production must be optimized for performance and brows
 }
 ```
 
-## Vite Build System
+## Build system
 
-We use a custom Vite-based build system for all JavaScript, TypeScript, and CSS projects. This build system provides lightning-fast development experience with Hot Module Replacement (HMR), optimized production builds, and professional tooling out of the box.
-
-### General benefits
-
-- Fast development with instant HMR feedback
-- SCSS compilation with PostCSS optimization
-- Production-ready builds with minification and optimization
-- ESLint and Prettier configured for code quality
-
-### CSS-specific features
-
-- SCSS preprocessing with nested selectors, variables, and functions
-- PostCSS with autoprefixer for cross-browser compatibility
-- CSS minification and optimization in production builds
-- Automatic vendor prefixing for modern CSS features
-- CSS source maps for easier debugging during development
-- **Ready helpers:** Pre-built SCSS functions and breakpoint variables that speed up development significantly
-
-**Resources:**
-- [View on GitHub](https://github.com/dmitry-conquer/zen-starter) - [Download](https://github.com/dmitry-conquer/zen-starter/archive/refs/heads/main.zip)
+See [Build System](/build-system) for the Vite-based setup, project defaults, and build requirements.
 

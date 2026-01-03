@@ -23,10 +23,22 @@ export default defineConfig({
       { text: 'JavaScript', link: '/javascript' },
       { text: 'WordPress', link: '/wordpress' },
       { text: 'SEO', link: '/seo' },
-      { text: 'Workflow', link: '/workflow' }
+      { text: 'Workflow', link: '/workflow' },
+      { text: 'Build System', link: '/build-system' }
     ],
 
     sidebar: {
+      '/build-system': [
+        {
+          text: 'Build System',
+          items: [
+            { text: 'Vite', link: '/build-system#vite' },
+            { text: 'Why we use it', link: '/build-system#why-we-use-it' },
+            { text: 'Our Vite-based setup', link: '/build-system#our-vite-based-setup-wrapper' },
+            { text: 'Resources', link: '/build-system#resources' }
+          ]
+        }
+      ],
       '/html': [
         {
           text: 'HTML Standards',
@@ -60,7 +72,7 @@ export default defineConfig({
             { text: 'Fluid responsive values with clamp()', link: '/css#fluid-responsive-values-with-clamp' },
             { text: 'CSS Testing', link: '/css#css-testing' },
             { text: 'Production', link: '/css#production' },
-            { text: 'Vite Build System', link: '/css#vite-build-system' }
+            { text: 'Build system', link: '/css#build-system' }
           ]
         }
       ],
@@ -68,7 +80,7 @@ export default defineConfig({
         {
           text: 'JavaScript Standards',
           items: [
-            { text: 'Vite Build System', link: '/javascript#vite-build-system' },
+            { text: 'Build system', link: '/javascript#build-system' },
             { text: 'Component Pattern', link: '/javascript#component-pattern' },
             { text: 'IIFE', link: '/javascript#iife-immediately-invoked-function-expression' },
             { text: 'DOMContentLoaded', link: '/javascript#domcontentloaded' },

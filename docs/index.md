@@ -30,14 +30,14 @@ hero:
 <div class="topic-section">
   <h2><a href="/css">CSS</a></h2>
   <ul>
-    <li><a href="/css#vite-build-system">Vite Build System</a></li>
+    <li><a href="/css#build-system">Build system</a></li>
     <li><a href="/css#bem-methodology">BEM Methodology</a></li>
     <li><a href="/css#css-variables">CSS Variables</a></li>
     <li><a href="/css#units--responsive-design">Units & Responsive Design</a></li>
     <li><a href="/css#media-queries-breakpoints">Media Queries Breakpoints</a></li>
     <li><a href="/css#hover-states">Hover States</a></li>
     <li><a href="/css#css-best-practices">CSS Best Practices</a></li>
-    <li><a href="/css#clamp-generator">Clamp Generator</a></li>
+    <li><a href="/css#fluid-responsive-values-with-clamp">Fluid responsive values with clamp()</a></li>
     <li><a href="/css#css-testing">CSS Testing</a></li>
     <li><a href="/css#production">Production</a></li>
   </ul>
@@ -46,7 +46,7 @@ hero:
 <div class="topic-section">
   <h2><a href="/javascript">JavaScript</a></h2>
   <ul>
-    <li><a href="/javascript#vite-build-system">Vite Build System</a></li>
+    <li><a href="/javascript#build-system">Build system</a></li>
     <li><a href="/javascript#component-pattern">Component Pattern</a></li>
     <li><a href="/javascript#iife-immediately-invoked-function-expression">IIFE</a></li>
     <li><a href="/javascript#domcontentloaded">DOMContentLoaded</a></li>
@@ -94,6 +94,16 @@ hero:
     <li>Git Workflow</li>
     <li>Code Review</li>
     <li>Deployment</li>
+  </ul>
+</div>
+
+<div class="topic-section">
+  <h2><a href="/build-system">Build System</a></h2>
+  <ul>
+    <li><a href="/build-system#vite">Vite</a></li>
+    <li><a href="/build-system#why-we-use-it">Why we use it</a></li>
+    <li><a href="/build-system#our-vite-based-setup-wrapper">Our Vite-based setup</a></li>
+    <li><a href="/build-system#resources">Resources</a></li>
   </ul>
 </div>
 
