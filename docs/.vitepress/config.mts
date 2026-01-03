@@ -1,8 +1,11 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: '',
+  title: 'MediaComponents Developer Guide',
   description: 'Complete reference for HTML, CSS, JavaScript, and WordPress development standards, best practices, and code examples.',
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
+  ],
   
   markdown: {
     theme: {
@@ -12,6 +15,7 @@ export default defineConfig({
   },
   
   themeConfig: {
+    siteTitle: 'MediaComponents',
     nav: [
       { text: 'Home', link: '/' },
       { text: 'HTML', link: '/html' },
@@ -46,16 +50,17 @@ export default defineConfig({
         {
           text: 'CSS Standards',
           items: [
-            { text: 'Vite Build System', link: '/css#vite-build-system' },
+            { text: 'CSS Reset', link: '/css#css-reset' },
             { text: 'BEM Methodology', link: '/css#bem-methodology' },
             { text: 'CSS Variables', link: '/css#css-variables' },
             { text: 'Units & Responsive Design', link: '/css#units--responsive-design' },
             { text: 'Media Queries Breakpoints', link: '/css#media-queries-breakpoints' },
             { text: 'Hover States', link: '/css#hover-states' },
             { text: 'CSS Best Practices', link: '/css#css-best-practices' },
-            { text: 'Clamp Generator', link: '/css#clamp-generator' },
+            { text: 'Fluid responsive values with clamp()', link: '/css#fluid-responsive-values-with-clamp' },
             { text: 'CSS Testing', link: '/css#css-testing' },
-            { text: 'Production', link: '/css#production' }
+            { text: 'Production', link: '/css#production' },
+            { text: 'Vite Build System', link: '/css#vite-build-system' }
           ]
         }
       ],

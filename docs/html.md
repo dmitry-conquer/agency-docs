@@ -1,7 +1,7 @@
 ---
 layout: doc
 title: Standards & Best Practices
-description: Semantic HTML, head structure, headings, links & navigation, buttons, 404 pages, ARIA attributes, tables, images, video, optimization, and HTML testing standards.
+description: "HTML standards used across our projects: semantic structure, predictable heading hierarchy, accessible links/buttons/navigation, ARIA rules for custom components, tables, images/SVG, video patterns, basic optimization, and validation. Use this page as a reference when creating markup or reviewing implementation quality."
 outline: deep
 ---
 
@@ -9,7 +9,7 @@ outline: deep
 
 # Standards & Best Practices
 
-Semantic HTML, head structure, headings, links & navigation, buttons, 404 pages, ARIA attributes, tables, images, video, optimization, and HTML testing standards.
+This page documents our HTML standards used across projects. It focuses on semantic markup and accessibility, with clear rules for headings, navigation, links vs buttons, ARIA usage for custom components, and common content elements like tables and media. It also includes practical guidance for performance basics and validation so markup stays consistent, readable, and reliable.
 
 ## Semantic HTML
 

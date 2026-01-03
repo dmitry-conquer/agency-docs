@@ -1,7 +1,7 @@
 ---
 layout: doc
 title: Standards & Best Practices
-description: Vite build system, BEM methodology, CSS variables, responsive design, units, media queries breakpoints, hover states, best practices, clamp generator, CSS testing, and production standards.
+description: "CSS standards for our projects: SCSS structure and file organization, naming conventions, design tokens, responsive rules (breakpoints, hover on touch), fluid sizing with clamp(), validation/testing, and production requirements. Use this page as a checklist and a reference when building or reviewing styles."
 outline: deep
 ---
 
@@ -9,56 +9,42 @@ outline: deep
 
 # Standards & Best Practices
 
-Vite build system, BEM methodology, CSS variables, responsive design, units, media queries breakpoints, hover states, best practices, clamp generator, CSS testing, and production standards.
+This page documents our CSS standards and SCSS conventions used across projects. It covers how we structure styles, name and scope components, manage tokens with CSS variables, handle responsiveness, and write predictable hover/focus behavior. It also includes guidance for fluid sizing with `clamp()`, testing/validation, and production readiness so styles remain consistent from development to release.
 
-## Vite Build System
+## CSS Reset
 
-We use a custom Vite-based build system for all JavaScript, TypeScript, and CSS projects. This build system provides lightning-fast development experience with Hot Module Replacement (HMR), optimized production builds, and professional tooling out of the box.
+A CSS reset normalizes browser defaults so your layout and typography start from a predictable baseline.
 
-### General Benefits:
+- **Why we use it:** consistent spacing/typography across browsers, fewer “random” default styles, faster start for new projects.
+- **Where it goes:** loaded/imported first, before any project styles.
 
-- Fast development with instant HMR feedback
-- SCSS compilation with PostCSS optimization
-- Production-ready builds with minification and optimization
-- ESLint and Prettier configured for code quality
-
-### CSS-Specific Features:
-
-- SCSS preprocessing with nested selectors, variables, mixins, and functions
-- PostCSS with autoprefixer for cross-browser compatibility
-- CSS minification and optimization in production builds
-- Automatic vendor prefixing for modern CSS features
-- CSS source maps for easier debugging during development
-- **Ready helpers:** Pre-built mixins, functions, and media queries that speed up development significantly
-
-**Resources:**
-- [View on GitHub](https://github.com/dmitry-conquer/zen-starter) - [Download](https://github.com/dmitry-conquer/zen-starter/archive/refs/heads/main.zip)
+Recommended reset: [reset.css](https://gist.github.com/mvllow/b2b38d2968c1b3b6a393556530a8f65f#file-foundation-css)
 
 ## BEM Methodology
 
 BEM (Block Element Modifier) is the industry-standard CSS naming methodology. It eliminates specificity wars, prevents style conflicts, and makes CSS maintainable and predictable. All BEM selectors have the same specificity (0,1,0) - one class.
 
-### Why BEM is necessary:
+### Why BEM is necessary
 
 - Eliminates specificity wars - all selectors have the same weight (0,1,0)
 - Prevents style conflicts in large projects
 - Self-documenting code - class names describe structure
 - Easy to find and maintain styles
 
-### BEM Structure:
+### BEM structure
 
 - **Block:** Standalone component (e.g., `.button`, `.card`, `.menu`)
 - **Element:** Part of a block, uses double underscore (e.g., `.card__title`, `.menu__item`)
 - **Modifier:** Variation of a block or element, uses double hyphen (e.g., `.button--primary`, `.card--large`)
 
-### BEM Best Practices:
+### BEM best practices
 
 - Never nest elements: Write `.card__title` not `.card .card__title`
 - No element nesting: Don't create `.card__header__title` - use `.card__title`
 - Keep specificity flat: All selectors must be (0,1,0) - one class
 - Modifiers are standalone: In HTML use `class="button button--primary"`, in CSS style only `.button--primary`
 
-### Example: Complete BEM Component
+### Complete BEM component
 
 ```html
 <!-- HTML: Block with elements and modifiers -->
@@ -75,7 +61,7 @@ BEM (Block Element Modifier) is the industry-standard CSS naming methodology. It
 </div>
 ```
 
-```css
+```scss
 /* CSS: Block */
 .card {
   background: var(--bg-secondary);
@@ -132,7 +118,7 @@ BEM (Block Element Modifier) is the industry-standard CSS naming methodology. It
 
 CSS Custom Properties (CSS Variables) allow you to store values that can be reused throughout your stylesheet. They enable dynamic theming, easier maintenance, and runtime value changes via JavaScript.
 
-### Why use CSS Variables:
+### Why use CSS variables
 
 - Centralized value management - change colors, spacing, or other values in one place
 - Dynamic theming - easily switch between light/dark themes or brand variations
@@ -140,28 +126,28 @@ CSS Custom Properties (CSS Variables) allow you to store values that can be reus
 - Cascading inheritance - variables can be scoped to specific components or globally
 - Better maintainability - update design tokens in one location
 
-### Best Practices:
+### Best practices
 
 - Define variables in `:root` for global scope, or in component selectors for local scope
-- Use descriptive names with prefixes (e.g., `--color-primary`, `--spacing-md`)
-- Provide fallback values when using variables: `color: var(--text-primary, #000)`
+- Use descriptive names with prefixes (e.g., `--primary`, `--spacing-md`, `--font-size-base`)
+- Provide fallback values when using variables: `color: var(--text, #000)`
 - Group related variables together (colors, spacing, typography, etc.)
 - Use variables for design tokens: colors, spacing, font sizes, shadows, transitions
 
-### Example: Global CSS Variables
+### Global CSS variables
 
-```css
+```scss
 /* Define variables in :root for global access */
 :root {
   /* Colors */
-  --color-primary: #3ecf8e;
-  --color-primary-dark: #2fa870;
-  --color-secondary: #6366f1;
-  --color-text: #1a1a1a;
-  --color-text-secondary: #6b7280;
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f9fafb;
-  --color-border: #e5e7eb;
+  --primary: #3ecf8e;
+  --primary-dark: #2fa870;
+  --secondary: #6366f1;
+  --text: #1a1a1a;
+  --text-secondary: #6b7280;
+  --bg: #ffffff;
+  --bg-secondary: #f9fafb;
+  --border: #e5e7eb;
   
   /* Spacing */
   --spacing-xs: 0.25rem;  /* 4px */
@@ -192,7 +178,7 @@ CSS Custom Properties (CSS Variables) allow you to store values that can be reus
 
 /* Use variables throughout your CSS */
 .button {
-  background: var(--color-primary);
+  background: var(--primary);
   color: white;
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: var(--font-size-base);
@@ -203,18 +189,18 @@ CSS Custom Properties (CSS Variables) allow you to store values that can be reus
 }
 
 .button:hover {
-  background: var(--color-primary-dark);
+  background: var(--primary-dark);
   box-shadow: var(--shadow-md);
 }
 ```
 
-### Example: Scoped Variables & Theming
+### Scoped variables & theming
 
-```css
+```scss
 /* Component-scoped variables */
 .card {
-  --card-bg: var(--color-bg);
-  --card-border: var(--color-border);
+  --card-bg: var(--bg);
+  --card-border: var(--border);
   --card-padding: var(--spacing-lg);
   
   background: var(--card-bg);
@@ -225,23 +211,23 @@ CSS Custom Properties (CSS Variables) allow you to store values that can be reus
 
 /* Override variables for modifiers */
 .card--highlighted {
-  --card-bg: var(--color-primary);
-  --card-border: var(--color-primary-dark);
+  --card-bg: var(--primary);
+  --card-border: var(--primary-dark);
   color: white;
 }
 
 /* Dark theme using data attribute */
 [data-theme="dark"] {
-  --color-text: #ffffff;
-  --color-text-secondary: #9ca3af;
-  --color-bg: #1a1a1a;
-  --color-bg-secondary: #2d2d2d;
-  --color-border: #374151;
+  --text: #ffffff;
+  --text-secondary: #9ca3af;
+  --bg: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --border: #374151;
 }
 
 /* Use with fallback */
 .text {
-  color: var(--color-text, #000000); /* Fallback if variable is undefined */
+  color: var(--text, #000000); /* Fallback if variable is undefined */
 }
 ```
 
@@ -251,9 +237,9 @@ Use rem/em for typography and spacing.
 
 **Why use rem and em?** rem units are relative to the root element's font-size, making them predictable and easy to scale. em units are relative to the parent element's font-size, useful for component-level scaling. Both provide better accessibility as they respect user's browser font-size preferences.
 
-### Example: HTML and Body Setup
+### HTML and body setup
 
-```css
+```scss
 /* Set base font-size on html for rem to work correctly */
 html {
   font-size: 100%; /* Respects user's browser font-size preference (usually 16px) */
@@ -265,9 +251,9 @@ body {
 }
 ```
 
-### Example: Responsive Typography
+### Responsive typography
 
-```css
+```scss
 .card {
   padding: 1.5rem; /* 24px */
   margin-bottom: 2rem; /* 32px */
@@ -318,9 +304,9 @@ $small: 767.98px;
 $x-small: 575.98px;
 ```
 
-### Example: max-width
+### Max-width queries
 
-```css
+```scss
 @media (max-width: 1399.98px) { }
 @media (max-width: 1199.98px) { }
 @media (max-width: 991.98px) { }
@@ -328,9 +314,9 @@ $x-small: 575.98px;
 @media (max-width: 575.98px) { }
 ```
 
-### Example: min-width
+### Min-width queries
 
-```css
+```scss
 @media (min-width: 1400px) { }
 @media (min-width: 1200px) { }
 @media (min-width: 992px) { }
@@ -346,18 +332,18 @@ Touch devices (smartphones, tablets) don't have a hover state. When users tap an
 
 Always wrap hover styles in a media query that checks for devices with hover capability to ensure hover effects only apply on devices that support them.
 
-### Example: Safe Hover Implementation
+### Safe hover implementation
 
-```css
+```scss
 .button {
-  background: var(--color-primary);
+  background: var(--primary);
   color: white;
   transition: background 0.2s ease;
   
   /* Only apply hover on devices that support it */
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      background: var(--color-primary-dark);
+      background: var(--primary-dark);
     }
   }
 }
@@ -380,7 +366,7 @@ Always wrap hover styles in a media query that checks for devices with hover cap
 
 ## CSS Best Practices
 
-- Never use inline styles (except dynamic values)
+- Never use inline styles (except dynamic values via CSS variables)
 - Avoid !important (use specificity instead)
 - Group related properties together
 - Use relative units rem/em for spacing and typography
@@ -390,7 +376,7 @@ Always wrap hover styles in a media query that checks for devices with hover cap
 - Avoid @import in CSS: The @import rule in CSS creates additional HTTP requests and is render-blocking. Instead of @import, use `<link rel="stylesheet">` tags in HTML (which can load in parallel) or better yet, combine CSS files at build time when possible
 - Minimize nesting (max 3 levels)
 
-### Example: Inline Styles - Forbidden
+### Inline styles (forbidden)
 
 ```html
 <!-- Bad: Never use inline styles with !important -->
@@ -402,9 +388,14 @@ Always wrap hover styles in a media query that checks for devices with hover cap
 <h1 class="page-title">Title</h1>
 <div class="content-wrapper">Content</div>
 <p class="text-body">Text</p>
+
+<!-- Allowed exception: dynamic values via CSS variables only -->
+<div class="progress" style="--progress: 72%">
+  Progress
+</div>
 ```
 
-```css
+```scss
 /* CSS */
 .page-title {
   color: #626262;
@@ -421,9 +412,9 @@ Always wrap hover styles in a media query that checks for devices with hover cap
 }
 ```
 
-### Example: Correct Breakpoint Order (max-width)
+### Breakpoint order (max-width)
 
-```css
+```scss
 /* Good: Breakpoints in descending order */
 .card {
   padding: 2rem;
@@ -467,9 +458,9 @@ Always wrap hover styles in a media query that checks for devices with hover cap
 }
 ```
 
-### Example: Well-Organized CSS
+### Well-organized CSS
 
-```css
+```scss
 /* Good: Organized, readable */
 .card {
   /* Layout */
@@ -503,15 +494,59 @@ Always wrap hover styles in a media query that checks for devices with hover cap
 .card:hover { border-color: #999; }
 ```
 
-## Clamp Generator
+## Fluid responsive values with clamp()
 
-Generate fluid typography and spacing using CSS clamp() function. This tool calculates clamp values based on minimum and maximum viewport widths and sizes.
+`clamp()` lets you create fluid typography and spacing that scales smoothly with the viewport.
+
+- **Browser support:** ~96% global support, safe for production use.
+- **Fewer media queries:** Often replaces multiple breakpoint rules with one line.
+- **Smoother responsive behavior:** No “jumps” between breakpoints.
+- **Faster development:** One formula, consistent results across the project.
 
 **Formula:** `clamp(min-size, preferred-size, max-size)`
 
 The preferred size is calculated using the formula:
 ```
 preferred-size = min-size + (max-size - min-size) * ((100vw - min-viewport) / (max-viewport - min-viewport))
+```
+
+### SCSS helper function
+
+```scss
+@use "sass:math";
+
+@function round-to($number, $decimals: 4) {
+  $factor: math.pow(10, $decimals);
+  @return math.div(math.round($number * $factor), $factor);
+}
+
+@function fluid($min, $max, $maxViewportWidth: 1440, $minViewportWidth: 375) {
+  $maxSize: round-to(math.div($max, 16));
+  $minSize: round-to(math.div($min, 16));
+  $maxWidth: round-to(math.div($maxViewportWidth, 16));
+  $minWidth: round-to(math.div($minViewportWidth, 16));
+
+  $slope: round-to(math.div(($maxSize - $minSize), ($maxWidth - $minWidth)));
+  $yAxisIntersection: round-to(-$minWidth * $slope + $minSize);
+
+  @return clamp(
+    #{$minSize * 1rem}, 
+    #{$yAxisIntersection * 1rem} + #{$slope * 100vw}, 
+    #{$maxSize * 1rem}
+  );
+}
+```
+
+### Usage
+
+```scss
+.hero__title {
+  font-size: fluid(24, 48);
+}
+
+.section {
+  padding-block: fluid(24, 64);
+}
 ```
 
 **Online Tools:**
@@ -522,14 +557,14 @@ preferred-size = min-size + (max-size - min-size) * ((100vw - min-viewport) / (m
 
 CSS testing ensures your stylesheets are error-free, responsive, and compatible across all browsers and devices. Always test your CSS before deploying to production.
 
-### Testing Checklist:
+### Testing checklist
 
 - CSS or SCSS files are without any errors
-- All pages were tested at the following breakpoints: 1399.98px, 1199.98px, 991.98px, 767.98px, 575.98px
+- All pages were tested at the following breakpoints: 1400px, 1200px, 992px, 768px, 576px, 375px
 - All pages were tested on all current desktop browsers (Safari, Firefox, Chrome, Edge)
 - Testing on Pixel Perfect, to prevent large differences from the design
 
-### W3C CSS Validator:
+### W3C CSS Validator
 
 The official W3C validator checks CSS for errors and warnings. Enter a URL or upload a CSS file below to validate your stylesheet.
 
@@ -545,9 +580,9 @@ All CSS files deployed to production must be optimized for performance and brows
 - **CSS Optimization:** Optimize CSS by merging duplicate rules, removing empty rules, and optimizing selectors
 - **Combine & Sort:** All CSS files must be combined into a single file and sorted by media queries (base styles first, then media queries in order: X-Large, Large, Medium, Small, X-Small) to improve caching, reduce HTTP requests, and ensure consistent rendering
 
-### Example: Combined & Sorted by Media Queries
+### Combined & sorted by media queries
 
-```css
+```scss
 /* Base styles */
 .button {
   padding: 0.5rem 1rem;
@@ -567,4 +602,27 @@ All CSS files deployed to production must be optimized for performance and brows
   }
 }
 ```
+
+## Vite Build System
+
+We use a custom Vite-based build system for all JavaScript, TypeScript, and CSS projects. This build system provides lightning-fast development experience with Hot Module Replacement (HMR), optimized production builds, and professional tooling out of the box.
+
+### General benefits
+
+- Fast development with instant HMR feedback
+- SCSS compilation with PostCSS optimization
+- Production-ready builds with minification and optimization
+- ESLint and Prettier configured for code quality
+
+### CSS-specific features
+
+- SCSS preprocessing with nested selectors, variables, and functions
+- PostCSS with autoprefixer for cross-browser compatibility
+- CSS minification and optimization in production builds
+- Automatic vendor prefixing for modern CSS features
+- CSS source maps for easier debugging during development
+- **Ready helpers:** Pre-built SCSS functions and breakpoint variables that speed up development significantly
+
+**Resources:**
+- [View on GitHub](https://github.com/dmitry-conquer/zen-starter) - [Download](https://github.com/dmitry-conquer/zen-starter/archive/refs/heads/main.zip)
 
