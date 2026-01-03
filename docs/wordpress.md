@@ -1,7 +1,7 @@
 ---
 layout: doc
 title: Development Standards
-description: Theme architecture, assets management, ACF PRO integration, security & data sanitization, plugins policy, deployment protocol, email delivery, and maintenance standards.
+description: "WordPress development standards for our projects: theme architecture, assets management, ACF PRO integration, security practices, plugin policy, deployment checklist, email delivery, and maintenance."
 outline: deep
 ---
 
@@ -9,7 +9,7 @@ outline: deep
 
 # Development Standards
 
-Theme architecture, assets management, ACF PRO integration, security & data sanitization, plugins policy, deployment protocol, email delivery, and maintenance standards.
+WordPress development standards for building and maintaining our projects. This page covers theme architecture, assets management, ACF PRO integration, security practices, plugin policy, deployment checklist, email delivery, and ongoing maintenance.
 
 ## Theme Architecture
 
@@ -18,7 +18,8 @@ Theme architecture, assets management, ACF PRO integration, security & data sani
 We use a ready-made theme starter as both an example of proper theme file organization and for creating new websites. This starter theme provides a clean, modern architecture following WordPress best practices.
 
 **Resources:**
-- [View on GitHub](https://github.com/dmitry-conquer/wp-starter-theme/) - [Download](https://github.com/dmitry-conquer/wp-starter-theme/archive/refs/heads/main.zip)
+- [View on GitHub](https://github.com/dmitry-conquer/wp-starter-theme/)
+- [Download](https://github.com/dmitry-conquer/wp-starter-theme/archive/refs/heads/main.zip)
 
 ### File Structure
 
@@ -35,7 +36,7 @@ The theme follows a clean, organized structure that separates concerns and makes
 - **template-parts/:** Reusable template components and partials.
 - **templates/:** Page templates.
 - **template-parts/flexible/:** Modules for ACF Flexible Content.
-- **header, footer:** Global template parts.
+- **header.php / footer.php:** Global layout files, usually delegating markup to `template-parts/` (header/footer partials).
 
 ### Class Standards
 
@@ -44,8 +45,8 @@ All functions must be inside classes, not just placed anywhere. This ensures bet
 - We use PHP Namespaces.
 - One class = One file.
 - Logic is split by purpose (don't write everything in one Theme.php class).
-- Use `final class` for classes that should not be extended.
-- Use `static` methods to avoid creating instances. This reduces memory usage and improves performance by allowing direct method calls without object instantiation.
+- Use `final class` only when you are sure the class will not be extended. Do not mark classes `final` by default.
+- Use `static` methods only for stateless utility logic. Prefer instances when state, dependencies, or testability matter.
 - Use proper visibility modifiers (`public`, `private`, `protected`).
 
 ## Global Components
@@ -91,14 +92,16 @@ The footer file closes the page structure and includes the footer template part 
 </html>
 ```
 
-### Key Points:
+### Key points
 
 - `wp_head()` - Must be called in `<head>` to allow plugins and themes to add scripts, styles, and meta tags
 - `wp_body_open()` - Allows plugins to inject content right after the opening `<body>` tag
 - `wp_footer()` - Must be called before closing `</body>` tag for scripts and tracking codes
+- `wp_head()` / `wp_footer()` - If missing, SEO tags, caching, analytics pixels, and many plugins can silently break
 - `language_attributes()` - Outputs language and text direction attributes for the HTML tag
 - `body_class()` - Adds contextual classes to the body tag for styling flexibility
 - Skip link for accessibility - allows keyboard users to jump to main content
+- Ensure `sr-only` exists in your CSS and becomes visible on `:focus` for keyboard users
 
 ## Assets Management
 
@@ -129,6 +132,8 @@ wp_enqueue_script(
   true // Load in footer
 );
 ```
+
+- Avoid calling `filemtime()` on missing files in production deployments. If needed, check `file_exists()` first or use a stable version constant.
 
 ### External Libraries (Swiper, etc.)
 
@@ -168,7 +173,7 @@ wp_enqueue_style(
 - **Never edit script.js:** The main `script.js` file is compiled from source files and will be overwritten during build processes. Editing it directly will result in lost changes.
 - **Use custom.js for additions:** All custom JavaScript code, new functionality, and modifications must be placed in `/assets/js/custom.js`.
 - **IIFE requirement:** All functions in `custom.js` must be wrapped in IIFE (Immediately Invoked Function Expression) to prevent global namespace pollution and conflicts with other scripts.
-- **DOMContentLoaded wrapper:** Code that interacts with the DOM must be wrapped in `DOMContentLoaded` event listener to ensure DOM is ready before execution.
+- **DOM ready:** Ensure initialization runs after the DOM is ready (load scripts in footer or with `defer`, or use `DOMContentLoaded` if needed). Don’t wrap every feature separately if you have a single entry point.
 
 **Example: custom.js Structure**
 
@@ -206,10 +211,11 @@ wp_enqueue_script(
 );
 ```
 
-### Best Practices:
+### Best practices
 
 - **Dependency management:** Always specify dependencies when enqueuing scripts. Use the dependency array to ensure scripts load in the correct order (e.g., `['jquery', 'script-js']`).
 - **Footer loading:** Load JavaScript files in the footer (`true` as last parameter) to improve page load performance and prevent render-blocking.
+- **Fonts:** Fonts must be optimized and hosted locally (prefer WOFF2). Avoid loading fonts from external services in production.
 - **Conditional loading:** Use conditional checks to load assets only on pages where they're needed. For example, load Swiper only on pages with sliders using `is_page()` or `is_singular()`.
 - **Minification:** All production assets should be minified. Use build tools to automatically minify CSS and JavaScript files before deployment.
 - **File organization:** Keep assets organized in proper directories: `/assets/css/` for stylesheets, `/assets/js/` for scripts, `/assets/images/` for images.
@@ -228,11 +234,12 @@ Minimizing the number of HTTP requests is crucial for website performance. Each 
 **Do not create separate files for small functionality:**
 
 Avoid creating individual files for every small piece of functionality. Instead, combine related code into existing files. For example, don't create `button-animation.js`, `form-validation.js`, and `tooltip.js` as separate files. Instead, add all small custom scripts to `custom.js`.
+Keep `custom.js` structured internally (component-style modules/functions) so it does not become a “dump file”.
 
 **Bad: Multiple Small Files**
 
 ```php
-// ❌ Bad: Don't create separate files for small functionality
+// Bad: Don't create separate files for small functionality
 wp_enqueue_script('button-animation', '/assets/js/button-animation.js', [], '1.0.0', true);
 wp_enqueue_script('form-validation', '/assets/js/form-validation.js', [], '1.0.0', true);
 wp_enqueue_script('tooltip', '/assets/js/tooltip.js', [], '1.0.0', true);
@@ -268,7 +275,7 @@ When a website is already in production and you need to add new scripts or style
 **Example: Adding New Functionality to Production Site**
 
 ```javascript
-// ✅ Correct: Add to existing custom.js
+// Correct: Add to existing custom.js
 // Don't create new-file.js, add to custom.js instead
 
 // custom.js
@@ -291,7 +298,7 @@ When a website is already in production and you need to add new scripts or style
 **Example: Adding Styles to Production Site**
 
 ```css
-/* ✅ Correct: Add to existing custom.css */
+/* Correct: Add to existing custom.css */
 /* Don't create new-styles.css, add to custom.css instead */
 
 /* custom.css */
@@ -310,6 +317,7 @@ When a website is already in production and you need to add new scripts or style
 We build pages like a constructor (Page Builder).
 
 - **Architecture:** 1 Layout in ACF = 1 file in `template-parts/flexible/`
+- **Layout keys:** Use short, consistent keys for layouts (e.g., `hero`, `gallery`, `cta`). Treat layout keys as a contract between ACF and templates.
 - **Template Loop:** We use the standard `while (have_rows(...))` loop in the `templates/flexible.php` file.
 
 **Example: Flexible Content Loop**
@@ -325,11 +333,12 @@ We build pages like a constructor (Page Builder).
 ### Return Formats
 
 - **Image:** Image ID (for full control over the `img` tag).
+- Image ID should be output via `wp_get_attachment_image()` to get responsive `srcset` automatically.
 - **Link:** Link Array (URL, Title, Target).
 - **Checking:** Always check `if (!empty(...))` before output.
 - **Sanitization:** All fields must be sanitized. See [Security: Data Sanitization](#security-data-sanitization) for details.
 
-### Template Output Examples
+### Template output
 
 Examples of how to output ACF data in templates:
 
@@ -345,14 +354,14 @@ Examples of how to output ACF data in templates:
 
 ```php
 <?php if ( !empty($link) ) : ?>
-  <a href="<?php echo esc_url( $link['url'] ); ?>" 
-     aria-label="<?php echo esc_attr( $link['title']); ?>" 
+  <a href="<?php echo esc_url( $link['url'] ); ?>"
      target="<?php echo esc_attr( $link['target'] ?: '_self' ); ?>"
      <?php echo ( $link['target'] === '_blank' ) ? ' rel="noopener noreferrer"' : ''; ?>>
     <?php echo esc_html( $link['title'] ); ?>
   </a>
 <?php endif; ?>
 ```
+Rule: Use `aria-label` only when the link/button has no visible text (icon-only). If visible text exists, do not add `aria-label`.
 
 **Example: Repeater Output**
 
@@ -451,10 +460,12 @@ echo wp_kses_post($html_content); // Allow safe HTML
 - **Forbidden:** `query_posts()` (never use).
 - **Allowed:** `new WP_Query()` or `get_posts()`.
 - **Hooks:** To modify the main query (e.g., on archive pages) use the `pre_get_posts` hook, don't write a new query in the template.
+- Any custom SQL must use `$wpdb->prepare()`.
 
 ### Nonces
 
 - All forms and AJAX requests must be protected using `wp_create_nonce()`.
+- Always verify nonces on the backend using `wp_verify_nonce()` / `check_ajax_referer()` (not only creating them).
 
 ## Plugins Policy
 
@@ -468,17 +479,15 @@ Minimum plugins. Everything that can be done with code should be done with code.
 - If another department wants to install a plugin that is not included in the allowed plugins list, they must submit a request to the web department director or an authorized person.
 - The requested plugin must undergo a security and reliability review by the web department before installation.
 
-### ✅ Mandatory (Required)
+### Mandatory (Required)
 
 - ACF PRO (Licensed version)
 - Classic Editor (Disable Gutenberg, unless otherwise specified)
 - Safe SVG / SVG Support (Allow SVG uploads)
 - Yoast SEO
-- HFCM (Header Footer Code Manager)
 - Wordfence
-- WP Activity Log
 
-### ✅ Allowed
+### Allowed
 
 - Redirection
 - CookieYes | GDPR Cookie Consent
@@ -486,22 +495,26 @@ Minimum plugins. Everything that can be done with code should be done with code.
 - Gravity Forms
 - GTranslate
 - WPS Hide Login
-- WP File Manager
-- Better Search Replace
+- HFCM (Header Footer Code Manager)
+- WP Activity Log
 - Custom Fonts
 
-### 🛠 Dev Only (Remove/Disable on Production)
+### Dev Only (Remove/Disable on Production)
 
 - Query Monitor (Debug performance and errors)
 - Show Current Template
+- WP File Manager
+- Better Search Replace
 
-### ❌ Banned (Forbidden)
+### Banned (Forbidden)
 
 - **Visual Builders:** Elementor, Divi, WPBakery (kill PageSpeed)
 - **Really Simple SSL** (configured on the server)
 - **Shortcode-based plugins** (sliders, galleries, tabs). We do this through ACF Flexible.
+- **Backup plugins:** Backups must be done at the hosting level. Do not use backup plugins unless there is a clear, approved reason.
+- **Optimization/caching plugins:** Avoid “all-in-one” optimization/caching plugins (Autoptimize, WP Rocket, etc.) unless there is an urgent need and the solution is approved in advance. If approved, assign an owner and define a rollback plan.
 
-**⚠️ Important:** Use of plugins that are not included in the mandatory or allowed lists must be discussed in advance with the web department director or an authorized person.
+**Important:** Use of plugins that are not included in the mandatory or allowed lists must be discussed in advance with the web department director or an authorized person.
 
 ## Deployment Protocol
 
@@ -510,10 +523,13 @@ Minimum plugins. Everything that can be done with code should be done with code.
 Checklist before project handover.
 
 - **Debug:** Ensure `WP_DEBUG` is set to `false` in `wp-config.php`.
+- **Disable file editor:** Add `define('DISALLOW_FILE_EDIT', true);` to `wp-config.php`.
 - **Search Engines:** Enable indexing ("Settings → Reading → Discourage search engines" — uncheck the box).
 - **Permalinks:** Re-save permalink settings (common 404 error fix).
+- **404/Redirects:** Verify real 404 status on missing pages and validate redirects (Redirection plugin or server rules).
 - **Admin Email:** Change administrator email to client's email.
 - **Forms:** Send test submission from all forms.
+- **reCAPTCHA/SMTP:** If forms are hosted on the site, verify reCAPTCHA works and SMTP is configured and delivering.
 - **Dev Plugins:** Remove or disable all dev-only plugins (Query Monitor, Show Current Template, etc.).
 - **Security:** Remove test data, check file permissions, ensure no debug information is exposed.
 - **Performance:** Clear cache, optimize database, check page load speed.
@@ -527,6 +543,13 @@ Checklist before project handover.
 ### JotForm
 
 For forms, we use the [Jotform](https://www.jotform.com/) service.
+
+### Forms on the site (Gravity Forms)
+
+If the client wants forms directly on the website (not via external services), use **Gravity Forms**.
+
+- **Mandatory:** add Google reCAPTCHA
+- **Mandatory:** configure SMTP (see below)
 
 ### SMTP
 
@@ -550,4 +573,11 @@ Plugins, themes, and WordPress core must be kept up to date.
 ### Verify Site Functionality
 
 Verify site functionality after updates are complete.
+
+- Home page renders correctly
+- Forms submit and deliver emails
+- Search works (if used)
+- 404 page returns HTTP 404
+- Admin login works and no unexpected users/plugins exist
+- Basic performance check (Core Web Vitals / PageSpeed sanity)
 

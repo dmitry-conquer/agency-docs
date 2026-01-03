@@ -276,10 +276,10 @@ Understanding when to use `<button>` versus `<a>` is crucial for accessibility, 
   Toggle Menu
 </button>
 
-<!-- ❌ WRONG: Link without href used as button -->
+<!-- WRONG: Link without href used as button -->
 <!-- <a href="#" onclick="doSomething()">Click Me</a> -->
 
-<!-- ❌ WRONG: Button used for navigation -->
+<!-- WRONG: Button used for navigation -->
 <!-- <button onclick="window.location='/page'">Go to Page</button> -->
 ```
 

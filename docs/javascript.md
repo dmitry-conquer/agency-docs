@@ -238,18 +238,15 @@ These are the approved JavaScript libraries we use in our projects. Each library
 
 We do not use jQuery in new projects and we avoid jQuery-based plugins.
 
-### Why we don’t use jQuery
+### We don’t use jQuery
 
 - Modern JavaScript and DOM APIs cover jQuery’s core use cases (selectors, events, Ajax) without an extra dependency.
 - jQuery complicates TypeScript usage and makes code less explicit (dynamic typing and “magic” chaining patterns).
 - It increases bundle size and reduces tree-shaking effectiveness compared to modular ES packages.
 - It encourages patterns that are harder to maintain in component-based architecture (global selectors, implicit state).
-
-### Why we don’t use jQuery plugins
-
-- Many plugins are unmaintained, add legacy code, and increase security/compatibility risk.
+- Many jQuery plugins are unmaintained, add legacy code, and increase security/compatibility risk.
 - Plugin markup and behavior is often not accessible by default and is harder to align with our accessibility rules.
-- They often rely on global state and DOM structure assumptions, which breaks during template/content changes.
+- Plugins often rely on global state and DOM structure assumptions, which breaks during template/content changes.
 
 ### If a project already has jQuery
 
