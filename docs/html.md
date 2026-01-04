@@ -94,7 +94,7 @@ Use semantic HTML5 elements. They improve accessibility, SEO, and maintainabilit
           <li><a href="/terms">Terms of Service</a></li>
         </ul>
       </nav>
-      <p>&copy; 2024 Company Name. All rights reserved.</p>
+      <p>2026 Company Name. All rights reserved.</p>
     </footer>
   </body>
 </html>

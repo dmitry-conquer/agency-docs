@@ -15,7 +15,7 @@ WordPress development standards for building and maintaining our projects. This 
 
 ### WordPress Theme Framework
 
-We use a ready-made theme starter as both an example of proper theme file organization and for creating new websites. This starter theme provides a clean, modern architecture following WordPress best practices.
+We use a ready-made theme starter as a reference for theme file organization and as a base for new websites. It provides a clean, modern architecture aligned with WordPress best practices.
 
 **Resources:**
 - [View on GitHub](https://github.com/dmitry-conquer/wp-starter-theme/)
@@ -105,7 +105,7 @@ The footer file closes the page structure and includes the footer template part 
 
 ## Assets Management
 
-Proper asset management in WordPress ensures optimal performance, cache busting, and maintainability. All CSS and JavaScript files must be properly enqueued using WordPress functions with version control and dependency management.
+Rules for loading and managing theme assets (CSS/JS) with predictable caching and maintainability.
 
 ### Basic Asset Enqueuing
 
@@ -137,15 +137,13 @@ wp_enqueue_script(
 
 ### External Libraries (Swiper, etc.)
 
-External libraries like Swiper must be loaded from separate files (e.g., `/assets/js/swiper.js`), not from CDN and not bundled in the main compiled script file.
+Prefer local library files (no CDN). Load as a separate file when the workflow requires using the library without rebuilding the main bundle (e.g., adding new sliders later).
 
-**Why separate files instead of CDN or bundled scripts:**
+**Rationale:**
 
-- **Dynamic initialization:** Libraries like Swiper require the ability to create new instances dynamically. If Swiper is bundled in the main `script.js` file, you cannot create new sliders after the initial page load without rebuilding the entire bundle.
-- **Reusability:** Separate library files allow you to initialize multiple instances of the same library on different pages or sections without conflicts or duplicate code.
-- **Version control:** Loading from local files gives you full control over library versions and ensures compatibility with your theme code.
-- **No external dependencies:** Avoiding CDN eliminates dependency on external services, reduces potential security risks, and ensures assets load even if CDN is unavailable.
-- **Performance:** Local files can be optimized, minified, and cached more effectively than CDN resources, especially when combined with proper WordPress caching strategies.
+- **No external dependency:** avoids relying on third-party CDNs.
+- **Controlled versions:** easy to pin and update intentionally.
+- **Workflow flexibility:** can be used/initialized where needed without rebuilding the whole bundle (when required).
 
 ```php
 // Enqueue Swiper from separate file
@@ -175,7 +173,7 @@ wp_enqueue_style(
 - **IIFE requirement:** All functions in `custom.js` must be wrapped in IIFE (Immediately Invoked Function Expression) to prevent global namespace pollution and conflicts with other scripts.
 - **DOM ready:** Ensure initialization runs after the DOM is ready (load scripts in footer or with `defer`, or use `DOMContentLoaded` if needed). Don’t wrap every feature separately if you have a single entry point.
 
-**Example: custom.js Structure**
+#### custom.js structure
 
 ```javascript
 // custom.js - All custom code goes here
@@ -198,7 +196,7 @@ wp_enqueue_style(
 })();
 ```
 
-**Example: Enqueuing custom.js**
+#### Enqueue custom.js
 
 ```php
 // Enqueue custom.js after main script
@@ -216,27 +214,17 @@ wp_enqueue_script(
 - **Dependency management:** Always specify dependencies when enqueuing scripts. Use the dependency array to ensure scripts load in the correct order (e.g., `['jquery', 'script-js']`).
 - **Footer loading:** Load JavaScript files in the footer (`true` as last parameter) to improve page load performance and prevent render-blocking.
 - **Fonts:** Fonts must be optimized and hosted locally (prefer WOFF2). Avoid loading fonts from external services in production.
-- **Conditional loading:** Use conditional checks to load assets only on pages where they're needed. For example, load Swiper only on pages with sliders using `is_page()` or `is_singular()`.
+- **Conditional loading:** Use conditional checks to load assets only on pages where they're needed (e.g., load Swiper only on pages with sliders using `is_page()` or `is_singular()`).
 - **Minification:** All production assets should be minified. Use build tools to automatically minify CSS and JavaScript files before deployment.
 - **File organization:** Keep assets organized in proper directories: `/assets/css/` for stylesheets, `/assets/js/` for scripts, `/assets/images/` for images.
 
 ### Minimize Number of Files
 
-Minimizing the number of HTTP requests is crucial for website performance. Each additional CSS or JavaScript file requires a separate HTTP request, which increases page load time, especially on slower connections.
+Keep the number of CSS/JS files small to reduce HTTP requests and keep caching predictable.
 
-**Why minimize files:**
+**Rule:** Don’t create a new file for every small feature. Keep small additions inside `custom.js`/`custom.css` and keep them structured (component-style modules/functions) so they don’t become a “dump file”.
 
-- **Reduced HTTP requests:** Each file requires a separate HTTP request. Fewer files mean fewer requests, resulting in faster page load times and better performance scores.
-- **Better caching:** Fewer files are easier to cache and manage. Browsers can cache fewer files more effectively, reducing bandwidth usage for returning visitors.
-- **Reduced server load:** Fewer file requests mean less server overhead and faster response times, especially under high traffic conditions.
-- **Improved Core Web Vitals:** Fewer HTTP requests contribute to better Largest Contentful Paint (LCP) and First Contentful Paint (FCP) scores, which are important ranking factors for SEO.
-
-**Do not create separate files for small functionality:**
-
-Avoid creating individual files for every small piece of functionality. Instead, combine related code into existing files. For example, don't create `button-animation.js`, `form-validation.js`, and `tooltip.js` as separate files. Instead, add all small custom scripts to `custom.js`.
-Keep `custom.js` structured internally (component-style modules/functions) so it does not become a “dump file”.
-
-**Bad: Multiple Small Files**
+#### Avoid many small files
 
 ```php
 // Bad: Don't create separate files for small functionality
@@ -246,7 +234,7 @@ wp_enqueue_script('tooltip', '/assets/js/tooltip.js', [], '1.0.0', true);
 wp_enqueue_script('smooth-scroll', '/assets/js/smooth-scroll.js', [], '1.0.0', true);
 ```
 
-**Good: Combined in custom.js**
+#### Prefer one custom.js
 
 ```php
 // ✓ Good: All small functionality in one custom.js file
@@ -262,17 +250,13 @@ wp_enqueue_script('custom-js', '/assets/js/custom.js', ['script-js'], '1.0.0', t
 
 ### Using custom.js and custom.css for production sites
 
-When a website is already in production and you need to add new scripts or styles, always use `custom.js` and `custom.css` instead of creating new files or modifying the main compiled files.
+For production hotfixes and small additions, use `custom.js` and `custom.css` (don’t edit build output files).
 
-**Why use custom.js/custom.css:**
+- **No rebuild required**
+- **Main files stay untouched**
+- **No extra HTTP requests**
 
-- **No rebuild required:** Adding code to `custom.js` or `custom.css` doesn't require rebuilding the entire project. You can make changes directly without running build processes, which is essential for quick fixes and updates on live sites.
-- **Preserves main files:** The main `script.js` and `style.css` files are generated by build tools and should never be edited directly. Using `custom.js` and `custom.css` keeps your main compiled files intact and prevents conflicts during future builds.
-- **Easy maintenance:** All custom code is in one place, making it easier to find, update, and maintain. You don't need to search through multiple files or worry about overwriting changes during deployments.
-- **Version control friendly:** Custom files are clearly separated from build-generated files, making it easier to track changes in version control and understand what code was added manually versus what was generated.
-- **Minimal performance impact:** Adding code to existing `custom.js` and `custom.css` files doesn't increase the number of HTTP requests. The files are already being loaded, so you're just adding more code to existing requests.
-
-**Example: Adding New Functionality to Production Site**
+#### Add new functionality (custom.js)
 
 ```javascript
 // Correct: Add to existing custom.js
@@ -295,7 +279,7 @@ When a website is already in production and you need to add new scripts or style
 })();
 ```
 
-**Example: Adding Styles to Production Site**
+#### Add styles (custom.css)
 
 ```css
 /* Correct: Add to existing custom.css */
@@ -314,13 +298,13 @@ When a website is already in production and you need to add new scripts or style
 
 ### Flexible Content Strategy
 
-We build pages like a constructor (Page Builder).
+We build pages with ACF Flexible Content (page builder style).
 
 - **Architecture:** 1 Layout in ACF = 1 file in `template-parts/flexible/`
 - **Layout keys:** Use short, consistent keys for layouts (e.g., `hero`, `gallery`, `cta`). Treat layout keys as a contract between ACF and templates.
-- **Template Loop:** We use the standard `while (have_rows(...))` loop in the `templates/flexible.php` file.
+- **Template Loop:** Use the standard `while (have_rows(...))` loop in the `templates/flexible.php` file.
 
-**Example: Flexible Content Loop**
+#### Flexible Content loop
 
 ```php
 <?php if (have_rows('content')): ?>
@@ -340,9 +324,9 @@ We build pages like a constructor (Page Builder).
 
 ### Template output
 
-Examples of how to output ACF data in templates:
+Common template outputs:
 
-**Example: Image Output**
+#### Image
 
 ```php
 <?php if(!empty($image)): ?>
@@ -350,7 +334,7 @@ Examples of how to output ACF data in templates:
 <?php endif; ?>
 ```
 
-**Example: Link Output**
+#### Link
 
 ```php
 <?php if ( !empty($link) ) : ?>
@@ -363,7 +347,7 @@ Examples of how to output ACF data in templates:
 ```
 Rule: Use `aria-label` only when the link/button has no visible text (icon-only). If visible text exists, do not add `aria-label`.
 
-**Example: Repeater Output**
+#### Repeater
 
 ```php
 <?php
@@ -381,7 +365,7 @@ if ( !empty($items) ) : ?>
             <h3><?php echo esc_html($title); ?></h3>
           <?php endif; ?>
           <?php if ( !empty($content) ) : ?>
-<div><?php echo wp_kses_post($content); ?></div>
+            <div><?php echo wp_kses_post($content); ?></div>
           <?php endif; ?>
         </li>
       <?php endif; ?>
@@ -390,7 +374,7 @@ if ( !empty($items) ) : ?>
 <?php endif; ?>
 ```
 
-**Example: Options Page Field Output**
+#### Options page
 
 ```php
 <?php echo esc_html( get_field('phone_number', 'option') ); ?>
@@ -398,9 +382,9 @@ if ( !empty($items) ) : ?>
 
 ### Spacer Component
 
-For flexible content, add a Spacer component. This component allows you to create responsive spacing between sections with different values for desktop, tablet, and mobile devices. It's useful for fine-tuning the vertical rhythm of the page and ensuring consistent spacing across different screen sizes without hardcoding values in CSS.
+Add a Spacer component to control vertical spacing per breakpoint without hardcoding values in CSS.
 
-**Example: Spacer Template**
+#### Template
 
 ```php
 <?php 
@@ -415,7 +399,7 @@ $mobile = get_sub_field('mobile');
 </div>
 ```
 
-**Example: Spacer CSS**
+#### CSS
 
 ```css
 .spacer {

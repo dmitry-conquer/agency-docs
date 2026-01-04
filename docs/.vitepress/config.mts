@@ -81,7 +81,6 @@ export default defineConfig({
         {
           text: 'JavaScript Standards',
           items: [
-            { text: 'Build system', link: '/javascript#build-system' },
             { text: 'Component Pattern', link: '/javascript#component-pattern' },
             { text: 'IIFE', link: '/javascript#iife-immediately-invoked-function-expression' },
             { text: 'DOMContentLoaded', link: '/javascript#domcontentloaded' },
@@ -90,7 +89,8 @@ export default defineConfig({
             { text: 'Event Handling & Performance', link: '/javascript#event-handling--performance' },
             { text: 'DOM & Initialization Rules', link: '/javascript#dom--initialization-rules' },
             { text: 'Approved Libraries', link: '/javascript#approved-libraries' },
-            { text: 'Production', link: '/javascript#production' }
+            { text: 'Production', link: '/javascript#production' },
+            { text: 'Build system', link: '/javascript#build-system' }
           ]
         }
       ],

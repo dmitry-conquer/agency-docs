@@ -18,7 +18,7 @@ A CSS reset normalizes browser defaults so your layout and typography start from
 - **Why we use it:** consistent spacing/typography across browsers, fewer “random” default styles, faster start for new projects.
 - **Where it goes:** loaded/imported first, before any project styles.
 
-Recommended reset: [reset.css](https://gist.github.com/mvllow/b2b38d2968c1b3b6a393556530a8f65f#file-foundation-css)
+Recommended reset: [`reset.css` (download)](/reset.css){download}
 
 ## BEM Methodology
 
@@ -43,6 +43,8 @@ BEM (Block Element Modifier) is the industry-standard CSS naming methodology. It
 - No element nesting: Don't create `.card__header__title` - use `.card__title`
 - Keep specificity flat: All selectors must be (0,1,0) - one class
 - Modifiers are standalone: In HTML use `class="button button--primary"`, in CSS style only `.button--primary`
+- Element modifiers are allowed: `card__title--highlighted`, `card__button--primary`, etc.
+- Nesting is allowed only when it preserves BEM: pseudo-classes/pseudo-elements and media queries are OK; avoid nested descendant selectors that recreate `.block .block__element`
 
 ### Complete BEM component
 
@@ -129,7 +131,7 @@ CSS Custom Properties (CSS Variables) allow you to store values that can be reus
 ### Best practices
 
 - Define variables in `:root` for global scope, or in component selectors for local scope
-- Use descriptive names with prefixes (e.g., `--primary`, `--spacing-md`, `--font-size-base`)
+- Use consistent, descriptive names (e.g., `--primary`, `--spacing-md`, `--font-size-base`)
 - Provide fallback values when using variables: `color: var(--text, #000)`
 - Group related variables together (colors, spacing, typography, etc.)
 - Use variables for design tokens: colors, spacing, font sizes, shadows, transitions
@@ -235,7 +237,10 @@ CSS Custom Properties (CSS Variables) allow you to store values that can be reus
 
 Use rem/em for typography and spacing.
 
-**Why use rem and em?** rem units are relative to the root element's font-size, making them predictable and easy to scale. em units are relative to the parent element's font-size, useful for component-level scaling. Both provide better accessibility as they respect user's browser font-size preferences.
+**Why use rem and em?**
+
+- **rem**: predictable scaling from root font-size (good for typography and spacing)
+- **em**: scales relative to component font-size (useful for component-level sizing)
 
 ### HTML and body setup
 
@@ -324,7 +329,7 @@ $x-small: 575.98px;
 @media (min-width: 576px) { }
 ```
 
-**Why subtract .02px?** Browsers don't currently support range context queries, so we work around the limitations of min- and max- prefixes and viewports with fractional widths (which can occur under certain conditions on high-dpi devices, for instance) by using values with higher precision.
+**Why subtract .02px?** To avoid edge cases with fractional viewport widths and min/max overlaps on some devices. Higher-precision values reduce “off-by-one” breakpoint glitches.
 
 ## Hover States
 
@@ -367,12 +372,13 @@ Always wrap hover styles in a media query that checks for devices with hover cap
 ## CSS Best Practices
 
 - Never use inline styles (except dynamic values via CSS variables)
-- Avoid !important (use specificity instead)
+- Avoid !important (use proper architecture and specificity)
 - Group related properties together
 - Use relative units rem/em for spacing and typography
 - Use only the breakpoints specified above
-- Optimize and minify CSS: all breakpoints should be in the correct order and not chaotic
-- CSS vendor prefixes are used and are generated accordingly with your browser support compatibility
+- Minify CSS in production
+- Keep breakpoint rules ordered (don’t mix them chaotically)
+- Use Autoprefixer, don’t hand-write vendor prefixes
 - Avoid @import in CSS: The @import rule in CSS creates additional HTTP requests and is render-blocking. Instead of @import, use `<link rel="stylesheet">` tags in HTML (which can load in parallel) or better yet, combine CSS files at build time when possible
 - Minimize nesting (max 3 levels)
 
@@ -559,10 +565,10 @@ CSS testing ensures your stylesheets are error-free, responsive, and compatible 
 
 ### Testing checklist
 
-- CSS or SCSS files are without any errors
+- No CSS/SCSS errors/warnings
 - All pages were tested at the following breakpoints: 1400px, 1200px, 992px, 768px, 576px, 375px
 - All pages were tested on all current desktop browsers (Safari, Firefox, Chrome, Edge)
-- Testing on Pixel Perfect, to prevent large differences from the design
+- Compare against design (pixel-perfect). Use the **PerfectPixel by WellDoneCode** browser extension.
 
 ### W3C CSS Validator
 
@@ -576,7 +582,6 @@ All CSS files deployed to production must be optimized for performance and brows
 
 - **Minification:** All CSS must be minified to reduce file size and improve load times
 - **Autoprefixer:** Vendor prefixes must be automatically generated using Autoprefixer based on your browser support requirements
-- **Unused CSS Removal:** Remove unused CSS rules to reduce file size (PurgeCSS or similar tools)
 - **CSS Optimization:** Optimize CSS by merging duplicate rules, removing empty rules, and optimizing selectors
 - **Combine & Sort:** All CSS files must be combined into a single file and sorted by media queries (base styles first, then media queries in order: X-Large, Large, Medium, Small, X-Small) to improve caching, reduce HTTP requests, and ensure consistent rendering
 

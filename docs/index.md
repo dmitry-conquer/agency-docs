@@ -30,7 +30,7 @@ hero:
 <div class="topic-section">
   <h2><a href="/css">CSS</a></h2>
   <ul>
-    <li><a href="/css#build-system">Build system</a></li>
+    <li><a href="/css#css-reset">CSS Reset</a></li>
     <li><a href="/css#bem-methodology">BEM Methodology</a></li>
     <li><a href="/css#css-variables">CSS Variables</a></li>
     <li><a href="/css#units--responsive-design">Units & Responsive Design</a></li>
@@ -40,13 +40,13 @@ hero:
     <li><a href="/css#fluid-responsive-values-with-clamp">Fluid responsive values with clamp()</a></li>
     <li><a href="/css#css-testing">CSS Testing</a></li>
     <li><a href="/css#production">Production</a></li>
+    <li><a href="/css#build-system">Build system</a></li>
   </ul>
 </div>
 
 <div class="topic-section">
   <h2><a href="/javascript">JavaScript</a></h2>
   <ul>
-    <li><a href="/javascript#build-system">Build system</a></li>
     <li><a href="/javascript#component-pattern">Component Pattern</a></li>
     <li><a href="/javascript#iife-immediately-invoked-function-expression">IIFE</a></li>
     <li><a href="/javascript#domcontentloaded">DOMContentLoaded</a></li>
@@ -56,6 +56,7 @@ hero:
     <li><a href="/javascript#dom--initialization-rules">DOM & Initialization Rules</a></li>
     <li><a href="/javascript#approved-libraries">Approved Libraries</a></li>
     <li><a href="/javascript#production">Production</a></li>
+    <li><a href="/javascript#build-system">Build system</a></li>
   </ul>
 </div>
 
