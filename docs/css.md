@@ -24,6 +24,10 @@ Recommended reset: [`reset.css` (download)](/reset.css){download}
 
 BEM (Block Element Modifier) is the industry-standard CSS naming methodology. It eliminates specificity wars, prevents style conflicts, and makes CSS maintainable and predictable. All BEM selectors have the same specificity (0,1,0) - one class.
 
+**Using BEM is mandatory** in our projects because it keeps specificity flat and predictable, which prevents styling conflicts and makes components easier to maintain and scale across the codebase.
+
+**BEM documentation:** [en.bem.info/methodology](https://en.bem.info/methodology/)
+
 ### Why BEM is necessary
 
 - Eliminates specificity wars - all selectors have the same weight (0,1,0)
@@ -132,7 +136,7 @@ CSS Custom Properties (CSS Variables) allow you to store values that can be reus
 
 - Define variables in `:root` for global scope, or in component selectors for local scope
 - Use consistent, descriptive names (e.g., `--primary`, `--spacing-md`, `--font-size-base`)
-- Provide fallback values when using variables: `color: var(--text, #000)`
+- Provide fallback values when using variables (optional): `color: var(--text, #000)`
 - Group related variables together (colors, spacing, typography, etc.)
 - Use variables for design tokens: colors, spacing, font sizes, shadows, transitions
 
@@ -371,7 +375,7 @@ Always wrap hover styles in a media query that checks for devices with hover cap
 
 ## CSS Best Practices
 
-- Never use inline styles (except dynamic values via CSS variables)
+- Never use inline styles (except dynamic values via CSS variables; WordPress exception: inline `background-image` is OK when it comes from WP fields)
 - Avoid !important (use proper architecture and specificity)
 - Group related properties together
 - Use relative units rem/em for spacing and typography
