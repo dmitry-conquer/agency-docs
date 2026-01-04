@@ -124,6 +124,12 @@ The `<head>` contains metadata and links to external resources. Treat it as a re
   <title>Page title – Brand</title>
   <meta name="description" content="Page description for SEO and search results">
   
+  <!-- Fonts -->
+  <!-- Prefer hosting fonts locally (WOFF2). Use Google Fonts only when required. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://example.com/page">
@@ -194,7 +200,6 @@ Use semantic HTML and correct attributes for links and navigation. This affects 
 - **Navigation landmark:** Wrap menus in `<nav>`. Add `aria-label` only when needed (e.g., multiple navs on one page).
 - **External links:** Use `rel="noopener noreferrer"` for `target="_blank"`. Use `target="_blank"` only when necessary.
 - **Skip link:** Provide a skip link to main content on pages with heavy navigation. Ensure it becomes visible on `:focus`.
-- **Breadcrumbs:** Use `<nav aria-label="Breadcrumb">` + `<ol>`. Mark current item with `aria-current="page"`.
 - **States:** Ensure visible `:hover`, `:focus`, `:active`, and `:visited` states (focus is required for keyboard users).
 - **Downloads:** Use `download` when the intent is downloading. Add file type/size when helpful.
 - **Anchors:** Use readable IDs (`#section-name`, not `#section1`).
@@ -215,15 +220,6 @@ Use semantic HTML and correct attributes for links and navigation. This affects 
     <li><a href="/about">About Us</a></li>
     <li><a href="/contact">Contact</a></li>
   </ul>
-</nav>
-
-<!-- Breadcrumbs -->
-<nav aria-label="Breadcrumb">
-  <ol>
-    <li><a href="/">Home</a></li>
-    <li><a href="/products">Products</a></li>
-    <li aria-current="page">Product Name</li>
-  </ol>
 </nav>
 
 <!-- External link -->
@@ -444,9 +440,10 @@ Images affect performance and Core Web Vitals. Follow these rules consistently.
 - **Compression:** Compress before upload. Targets: **< 200KB for hero** and **< 100KB for content** (guideline).
 - **Lazy loading:** Use `loading="lazy"` below the fold.
 - **Hero/LCP:** Do **not** lazy-load the hero/LCP image.
-- **Formats:** Prefer WebP/AVIF where possible.
+- **Formats:** Prefer WebP where possible.
 - **CLS:** Include `width`/`height` (or CSS `aspect-ratio`).
-- **Alt:** Always include `alt`. Decorative → `alt=""`. Informative → short, descriptive text.
+- **Decoding:** Use `decoding="async"` for non-critical images to reduce main-thread blocking.
+- **Alt:** Always include `alt`. Use short, descriptive text.
 - **Captions:** Don’t rely on `title`. Use `<figure>` + `<figcaption>` when a visible caption/credit is needed.
 
 ### SVG & icons
@@ -467,7 +464,7 @@ Images affect performance and Core Web Vitals. Follow these rules consistently.
 <picture>
   <source media="(min-width: 768px)" srcset="image-desktop.webp">
   <source media="(min-width: 480px)" srcset="image-tablet.webp">
-  <img src="image-mobile.webp" alt="Description" width="400" height="300">
+  <img src="image-mobile.webp" alt="Description" width="400" height="300" decoding="async">
 </picture>
 
 <!-- Informative image -->
@@ -477,6 +474,7 @@ Images affect performance and Core Web Vitals. Follow these rules consistently.
   width="600" 
   height="800" 
   loading="lazy"
+  decoding="async"
 >
 
 <!-- Decorative image -->
@@ -486,6 +484,7 @@ Images affect performance and Core Web Vitals. Follow these rules consistently.
   width="1200" 
   height="50"
   aria-hidden="true"
+  decoding="async"
 >
 
 <!-- Icon inside a button (icon is decorative, label is on the button) -->
@@ -626,7 +625,7 @@ Background videos are decorative. Keep them lightweight and non-disruptive.
 
 ### Video optimization
 
-- **File size:** Compress aggressively (use HandBrake/FFmpeg).
+- **File size:** Targets: under 5MB (short videos), under 10MB (medium videos).
 - **Resolution:** Use the lowest acceptable resolution (often 720p for background video).
 - **Codecs:** MP4 (H.264) as baseline. Add WebM (VP9) when it helps.
 - **Loading:** `preload="none"` for below-the-fold/interactive video, `metadata` when it may play soon, `auto` only for critical above-the-fold.
