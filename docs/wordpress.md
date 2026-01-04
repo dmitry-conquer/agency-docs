@@ -502,9 +502,9 @@ Minimum plugins. Everything that can be done with code should be done with code.
 
 ## Deployment Protocol
 
-### Checklist
+### Handover checklist
 
-Checklist before project handover.
+Pre-handover checks.
 
 - **Debug:** Ensure `WP_DEBUG` is set to `false` in `wp-config.php`.
 - **Disable file editor:** Add `define('DISALLOW_FILE_EDIT', true);` to `wp-config.php`.
