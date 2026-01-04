@@ -91,10 +91,12 @@ hero:
 <div class="topic-section">
   <h2><a href="/workflow">Workflow</a></h2>
   <ul>
-    <li>Development Process</li>
-    <li>Git Workflow</li>
-    <li>Code Review</li>
-    <li>Deployment</li>
+    <li><a href="/workflow#roles-responsibilities-and-permissions-dev">Roles & permissions</a></li>
+    <li><a href="/workflow#dev-and-design-collaboration">Dev & Design collaboration</a></li>
+    <li><a href="/workflow#dev-and-seo-collaboration">Dev & SEO collaboration</a></li>
+    <li><a href="/workflow#implementation">Implementation</a></li>
+    <li><a href="/workflow#qa">QA</a></li>
+    <li><a href="/workflow#change-management">Change management</a></li>
   </ul>
 </div>
 
