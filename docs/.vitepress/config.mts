@@ -16,6 +16,7 @@ export default defineConfig({
   
   themeConfig: {
     siteTitle: 'MediaComponents',
+    lastUpdated: true,
     nav: [
       { text: 'Home', link: '/' },
       { text: 'HTML', link: '/html' },
@@ -44,7 +45,7 @@ export default defineConfig({
           text: 'HTML Standards',
           items: [
             { text: 'Semantic HTML', link: '/html#semantic-html' },
-            { text: 'Head', link: '/html#head' },
+            { text: 'Document head', link: '/html#document-head' },
             { text: 'Headings', link: '/html#headings' },
             { text: 'Links & Navigation', link: '/html#links--navigation' },
             { text: 'Buttons vs Links', link: '/html#buttons-vs-links' },
@@ -53,8 +54,8 @@ export default defineConfig({
             { text: 'Tables', link: '/html#tables' },
             { text: 'Images', link: '/html#images' },
             { text: 'Video', link: '/html#video' },
-            { text: 'Optimization', link: '/html#optimization' },
-            { text: 'HTML Testing', link: '/html#html-testing' }
+            { text: 'Performance basics', link: '/html#performance-basics' },
+            { text: 'Validation', link: '/html#validation' }
           ]
         }
       ],

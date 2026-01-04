@@ -9,16 +9,16 @@ outline: deep
 
 # Standards & Best Practices
 
-This page documents our HTML standards used across projects. It focuses on semantic markup and accessibility, with clear rules for headings, navigation, links vs buttons, ARIA usage for custom components, and common content elements like tables and media. It also includes practical guidance for performance basics and validation so markup stays consistent, readable, and reliable.
+HTML standards for our projects. Focus: semantic markup, accessibility, and predictable structure. Use this page as a reference during development and code review.
 
 ## Semantic HTML
 
-Always use semantic HTML5 elements. They improve accessibility, SEO, and code maintainability.
+Use semantic HTML5 elements. They improve accessibility, SEO, and maintainability.
 
 ### Semantic HTML5 tags
 
 - `<header>` - Site or section header, contains navigation and branding
-- `<nav>` - Navigation links, use `aria-label` for context
+- `<nav>` - Navigation links. Use `aria-label` only when needed (e.g., multiple navs on one page or no visible label)
 - `<main>` - Main content area, only one per page
 - `<article>` - Independent, self-contained content (blog post, news article)
 - `<section>` - Thematic grouping of content, usually with a heading
@@ -100,19 +100,20 @@ Always use semantic HTML5 elements. They improve accessibility, SEO, and code ma
 </html>
 ```
 
-## Head
+## Document head
 
-The `<head>` section contains metadata, links to external resources, and configuration for your HTML document. Proper head setup is essential for SEO, performance, and social media sharing.
+The `<head>` contains metadata and links to external resources. Treat it as a required baseline for SEO, performance, and sharing.
 
 ### Required elements
 
-- **Required meta tags:** Always include `<meta charset="UTF-8">` as the first element and `<meta name="viewport" content="width=device-width, initial-scale=1.0">` for responsive design.
-- **Title tag:** Every page must have a unique `<title>` tag (50-60 characters). It appears in browser tabs and search results.
-- **Meta description:** Include `<meta name="description">` (150-160 characters) for SEO and search result snippets.
-- **Open Graph tags:** Add Open Graph meta tags (`og:title`, `og:description`, `og:image`, `og:url`) for better social media sharing.
-- **Favicon:** Include `<link rel="icon">` for browser tab icon. Use multiple sizes for different devices.
-- **Performance hints:** Use `<link rel="preconnect">` for external domains and `<link rel="preload">` for critical resources.
-- **CSS in head:** Place CSS links in `<head>` before content. Use `<link rel="stylesheet">` for external stylesheets. It is not recommended to include stylesheets in the `<body>` tag - all styles should be connected only in the `<head>` section.
+- **Meta:** Include `<meta charset="UTF-8">` first and `<meta name="viewport" content="width=device-width, initial-scale=1.0">`.
+- **Title:** Each page must have a unique `<title>` (aim ~50–60 chars).
+- **Description:** Include `<meta name="description">` (aim ~150–160 chars).
+- **Social sharing:** Add Open Graph tags (`og:title`, `og:description`, `og:image`, `og:url`) and Twitter tags as needed.
+- **Favicon:** Include `<link rel="icon">` (use multiple sizes when required).
+- **Fonts:** If you can host fonts locally, you must do it locally (prefer WOFF2).
+- **Performance:** Use `<link rel="preconnect">` only for external domains you actually use and `<link rel="preload">` for critical resources.
+- **CSS:** Load styles via `<link rel="stylesheet">` in `<head>`. Don’t load stylesheets in `<body>`.
 
 ### Head template
 
@@ -120,7 +121,7 @@ The `<head>` section contains metadata, links to external resources, and configu
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Title - Site Name</title>
+  <title>Page title – Brand</title>
   <meta name="description" content="Page description for SEO and search results">
   
   <!-- Open Graph / Facebook -->
@@ -142,8 +143,7 @@ The `<head>` section contains metadata, links to external resources, and configu
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   
   <!-- Performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.example.com">
   
   <!-- CSS -->
   <link rel="stylesheet" href="/styles/main.css">
@@ -157,8 +157,7 @@ Proper heading structure is essential for accessibility, SEO, and content hierar
 ### Heading structure
 
 - **H1:** Use one H1 per page as the main heading of the page/content. Do not use the site name as H1 on every page.
-- **Headings:** Headings should be used properly and in the right order (H1 to H6).
-- **Never skip heading levels:** Don't jump from h1 to h3 (skipping h2). Use sequential order: h1 → h2 → h3.
+- **Never skip heading levels:** Use sequential order: h1 → h2 → h3 (don’t jump from h1 to h3).
 
 ### Proper heading hierarchy
 
@@ -187,24 +186,27 @@ Proper heading structure is essential for accessibility, SEO, and content hierar
 
 ## Links & Navigation
 
-Proper link markup and navigation structure improve accessibility, SEO, and user experience. Use semantic HTML and appropriate attributes for links.
+Use semantic HTML and correct attributes for links and navigation. This affects accessibility, SEO, and UX.
 
 ### Link best practices
 
-- **Descriptive link text:** Use meaningful, descriptive text for links. Avoid generic phrases like "click here" or "read more". Screen readers often navigate by links, so link text should make sense out of context.
-- **Use `<nav>` for navigation:** Wrap navigation menus in `<nav>` elements. Use `aria-label` to describe the navigation purpose (e.g., "Main navigation", "Breadcrumbs").
-- **External links:** Add `rel="noopener noreferrer"` to external links opened in new tabs for security. Use `target="_blank"` only when necessary and always indicate external links to users.
-- **Skip links:** Provide skip navigation links for keyboard users to jump to main content, especially on pages with extensive navigation.
-- **Breadcrumbs:** Use semantic HTML with `<nav aria-label="Breadcrumb">` and ordered list (`<ol>`) for breadcrumb navigation. Include `aria-current="page"` on the current page link.
-- **Link states:** Ensure links have clear visual states for :hover, :focus, :active, and :visited. Focus states are critical for keyboard navigation accessibility.
-- **Download links:** Use `download` attribute for files meant to be downloaded. Include file type and size information when helpful.
-- **Anchor links:** Use descriptive IDs for anchor links (e.g., `#section-name` instead of `#section1`). Ensure target elements have proper IDs.
+- **Link text:** Use descriptive text (avoid “click here”, “read more” without context).
+- **Navigation landmark:** Wrap menus in `<nav>`. Add `aria-label` only when needed (e.g., multiple navs on one page).
+- **External links:** Use `rel="noopener noreferrer"` for `target="_blank"`. Use `target="_blank"` only when necessary.
+- **Skip link:** Provide a skip link to main content on pages with heavy navigation. Ensure it becomes visible on `:focus`.
+- **Breadcrumbs:** Use `<nav aria-label="Breadcrumb">` + `<ol>`. Mark current item with `aria-current="page"`.
+- **States:** Ensure visible `:hover`, `:focus`, `:active`, and `:visited` states (focus is required for keyboard users).
+- **Downloads:** Use `download` when the intent is downloading. Add file type/size when helpful.
+- **Anchors:** Use readable IDs (`#section-name`, not `#section1`).
 
 ### Navigation patterns
 
 ```html
 <!-- Skip link -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Main content (skip link target) -->
+<main id="main-content"></main>
 
 <!-- Main navigation -->
 <nav aria-label="Main navigation">
@@ -229,7 +231,6 @@ Proper link markup and navigation structure improve accessibility, SEO, and user
   href="https://example.com" 
   target="_blank" 
   rel="noopener noreferrer"
-  aria-label="Visit website (opens in new tab)"
 >
   Visit website
 </a>
@@ -242,13 +243,13 @@ Proper link markup and navigation structure improve accessibility, SEO, and user
 
 ## Buttons vs Links
 
-Understanding when to use `<button>` versus `<a>` is crucial for accessibility, semantics, and user experience. Use the correct element based on the action's purpose.
+Use the correct element based on intent: navigation vs action.
 
 ### Usage guidelines
 
 - **Use `<a>` for navigation:** Links should be used when the action navigates to a new page, section, or resource. Links have a URL (`href` attribute) and change the browser location or scroll to an anchor.
 - **Use `<button>` for actions:** Buttons should be used for actions that perform a function on the current page (submit forms, open modals, toggle content, trigger JavaScript). Buttons don't navigate away from the page.
-- **Never style links as buttons:** Don't use `<a>` without `href` or with `href="#"` and JavaScript to simulate button behavior. This breaks keyboard navigation and accessibility.
+- **Don’t simulate buttons with links:** Don’t use `<a>` without `href` (or `href="#"`) to simulate a button with JavaScript.
 - **Never style buttons as links:** Don't use `<button>` for navigation. Buttons don't have URLs, can't be right-clicked to open in new tab, and don't show destination in browser status bar.
 - **Download actions:** For file downloads, use `<a>` with `download` attribute, not a button. This allows right-click "Save as" functionality.
 - **Form submissions:** Always use `<button type="submit">` for form submissions, never a link. This ensures proper form handling and accessibility.
@@ -392,7 +393,7 @@ This is a pattern for custom interactive components. For simple cases, prefer se
 
 ## Tables
 
-Use semantic HTML table elements to create accessible and well-structured data tables. Proper table markup improves screen reader support and data comprehension.
+Use semantic table elements. Keep structure predictable and accessible.
 
 ### Table structure
 
@@ -400,7 +401,10 @@ Use semantic HTML table elements to create accessible and well-structured data t
 - **Use `<th>` for headers:** Use `<th>` elements for column and row headers, not `<td>`. This helps screen readers identify header cells.
 - **Add `scope` attribute:** Use `scope="col"` for column headers and `scope="row"` for row headers to clarify the relationship between headers and data cells.
 - **Include `<caption>`:** Add a caption to describe the table's purpose. This helps users understand the table content before reading it.
-- **Use `headers` attribute:** For complex tables, use the `headers` attribute on `<td>` elements to reference their associated header cells by ID.
+
+### Advanced tables
+
+- **`headers` attribute:** For complex tables, use the `headers` attribute on `<td>` to reference associated header cells by ID.
 
 ### Accessible table
 
@@ -431,19 +435,19 @@ Use semantic HTML table elements to create accessible and well-structured data t
 
 ## Images
 
-Optimize images to improve page load times, reduce bandwidth usage, and enhance user experience. Proper image optimization is crucial for performance, especially on mobile devices.
+Images affect performance and Core Web Vitals. Follow these rules consistently.
 
 ### Image optimization
 
-- **Use properly sized images:** Always serve images at the exact size they will be displayed. Don't upload a 2000px wide image and scale it down to 400px with CSS – this wastes bandwidth and slows down the page. Resize images to match their display dimensions before uploading.
-- **Use responsive images:** Don't serve the same large image to both mobile and desktop screens. Use `<img srcset>` and `<picture>` elements to serve appropriately sized images based on device capabilities and screen size. This significantly reduces data usage on mobile devices.
-- **Compress and optimize images:** Always compress images before uploading. Use image optimization tools to reduce file size while maintaining visual quality. Target file sizes: **under 200KB for hero images** and **under 100KB for regular content images**. Smaller images load faster and consume less bandwidth, especially important for mobile users.
-- **Lazy-load images:** Use the `loading="lazy"` attribute on images that are below the fold (not immediately visible). This defers loading until the user scrolls near them, improving initial page load time. Always lazy-load images in long content sections, galleries, and below-the-fold content.
-- **Do not lazy-load the hero/LCP image:** The main above-the-fold image should not use `loading="lazy"` (it can hurt LCP and delay rendering).
-- **Use modern image formats:** Prefer WebP or AVIF formats over traditional JPEG and PNG. These formats provide better compression (30-50% smaller files) while maintaining quality.
-- **Specify width and height:** Always include `width` and `height` attributes (or use CSS `aspect-ratio`) for images. This prevents layout shift (CLS) by reserving space for the image before it loads, improving Core Web Vitals scores and user experience. The browser can calculate the aspect ratio and maintain the correct layout even before the image downloads.
-- **Always include `alt` attribute:** Every image must have an `alt` attribute. The `alt` text provides alternative information for images when they cannot be displayed or when users rely on screen readers. It's essential for accessibility, SEO, and user experience. For decorative images, use an empty `alt=""` attribute. For informative images, provide descriptive, concise text that conveys the image's purpose and content.
-- **Avoid `title` on images:** Don’t rely on `title` for accessibility. If you need a visible caption or credit, use `<figure>` + `<figcaption>` instead.
+- **Sizing:** Serve images close to the rendered size (don’t scale down huge files in CSS).
+- **Responsive:** Use `srcset`/`sizes` (or `<picture>`) so mobile doesn’t download desktop images.
+- **Compression:** Compress before upload. Targets: **< 200KB for hero** and **< 100KB for content** (guideline).
+- **Lazy loading:** Use `loading="lazy"` below the fold.
+- **Hero/LCP:** Do **not** lazy-load the hero/LCP image.
+- **Formats:** Prefer WebP/AVIF where possible.
+- **CLS:** Include `width`/`height` (or CSS `aspect-ratio`).
+- **Alt:** Always include `alt`. Decorative → `alt=""`. Informative → short, descriptive text.
+- **Captions:** Don’t rely on `title`. Use `<figure>` + `<figcaption>` when a visible caption/credit is needed.
 
 ### SVG & icons
 
@@ -494,14 +498,14 @@ Optimize images to improve page load times, reduce bandwidth usage, and enhance 
 
 ## Video
 
-Proper video implementation ensures optimal performance, accessibility, and user experience. Use semantic HTML5 video elements with appropriate attributes and optimization techniques.
+Video is expensive. Optimize it and keep behavior predictable.
 
 ### Video implementation
 
-- **Include poster image:** Use the `poster` attribute to show a preview image before the video loads. This improves perceived performance and provides visual context.
-- **Add controls and attributes:** Include `controls` for user playback control, `preload="metadata"` to load only metadata (not the entire video), and `playsinline` for mobile devices.
-- **Optimize video files:** Compress videos to reduce file size while maintaining quality. Use appropriate codecs (H.264 for MP4, VP9 for WebM). Consider video length and resolution based on usage context.
-- **Lazy loading:** The `loading="lazy"` attribute does **not** work for `<video>`. For below-the-fold videos use `preload="none"` (or `metadata`) and defer loading by setting the `src`/`<source>` only when the video is near viewport (e.g., via `IntersectionObserver`) or after user interaction.
+- **Poster:** Always provide `poster`.
+- **Controls & baseline attrs:** Use `controls` (when user-controlled), `playsinline`, and `preload="metadata"` by default.
+- **Optimization:** Compress video and pick appropriate codecs (MP4 H.264, WebM VP9).
+- **Lazy loading:** `loading="lazy"` does **not** work for `<video>`. For below-the-fold, use `preload="none"`/`metadata` and set `src`/`<source>` only near viewport (e.g., via `IntersectionObserver`) or after user interaction.
 
 ### Video with multiple sources
 
@@ -558,12 +562,12 @@ Proper video implementation ensures optimal performance, accessibility, and user
 
 ### Background video
 
-Background videos should be muted, autoplay, loop, and have no controls. They should not interfere with content readability and must be optimized for performance.
+Background videos are decorative. Keep them lightweight and non-disruptive.
 
 - **Essential attributes:** Use `autoplay`, `muted`, `loop`, and `playsinline` for background videos. Never use `controls` on background videos.
 - **Preload strategy:** Use `preload="auto"` for background videos that are immediately visible, or `preload="metadata"` if the video appears below the fold.
 - **Accessibility:** Background videos should be decorative. Use `aria-hidden="true"` to hide them from screen readers, and ensure they don't contain important information.
-- **Performance:** Keep background videos short (5-15 seconds) and optimized. Use lower resolution (720p or lower) and compress heavily. Consider using CSS to pause videos when not in viewport.
+- **Performance:** Keep videos short (5–15s), use lower resolution (often 720p), and compress heavily. Pause when not in viewport if needed.
 
 ### Background video markup
 
@@ -622,31 +626,31 @@ Background videos should be muted, autoplay, loop, and have no controls. They sh
 
 ### Video optimization
 
-- **File size:** Compress videos to reduce file size. Target file sizes: under 5MB for short videos (30 seconds), under 10MB for medium videos (1-2 minutes). Use tools like HandBrake or FFmpeg for compression.
-- **Resolution:** Use appropriate resolution based on display size. For most web use, 1080p (1920x1080) is sufficient. For background videos, 720p (1280x720) is often adequate.
-- **Codec selection:** Use H.264 codec for MP4 (best compatibility) and VP9 for WebM (better compression). Always provide MP4 as fallback.
-- **Loading strategy:** Use `preload="none"` for videos below the fold or that require user interaction. Use `preload="metadata"` for videos that might be played soon. Only use `preload="auto"` for critical above-the-fold videos.
-- **Consider video hosting:** For large videos or high traffic, consider using video hosting services (YouTube, Vimeo, Cloudflare Stream) that provide CDN, adaptive streaming, and better performance.
+- **File size:** Compress aggressively (use HandBrake/FFmpeg).
+- **Resolution:** Use the lowest acceptable resolution (often 720p for background video).
+- **Codecs:** MP4 (H.264) as baseline. Add WebM (VP9) when it helps.
+- **Loading:** `preload="none"` for below-the-fold/interactive video, `metadata` when it may play soon, `auto` only for critical above-the-fold.
+- **Optional:** For large videos/high traffic, use a video hosting/CDN.
 
-## Optimization
+## Performance basics
 
-Optimize your HTML for better performance, faster loading, and improved user experience.
+Keep markup lean and loading predictable.
 
 ### Optimization guidelines
 
-- **Clean up redundant code:** Remove unnecessary HTML, comments, and extra whitespace. Every byte counts – a leaner HTML document means faster downloads and parsing. Small reductions in HTML size can especially help on mobile networks.
-- **Load external files in the correct order:** External CSS and JS files should be ordered for optimal loading. CSS is render-blocking, so it should appear in the `<head>`. Scripts should be loaded non-blocking – put `<script>` tags just before the closing `</body>` or use `async`/`defer` attributes.
-- **Avoid unnecessary iframes:** `<iframe>` elements can significantly slow down a page. Use them sparingly and only when needed. Consider adding `loading="lazy"` to iframes below the fold, or load them on demand (click or scroll) to save resources.
-- **Avoid inline JavaScript in HTML:** Do not use inline event handlers or inline `<script>` in markup. Keep JavaScript in separate files and load it with `defer` or before `</body>` (exceptions only when explicitly justified and documented).
-- **Use `data-*` attributes as JS hooks:** Treat `data-*` attributes as a contract between markup and JavaScript (especially important when integrating into WordPress templates). Use classes for styling, and `data-*` for behavior, so layout/template changes don’t break JS.
+- **HTML size:** Remove redundant markup/comments.
+- **Load order:** CSS in `<head>`. JS non-blocking (`defer` or before `</body>`).
+- **Iframes:** Use only when needed. Lazy-load below the fold or load on demand.
+- **Inline JS:** Don’t use inline handlers or inline `<script>` in markup (exceptions only when justified).
+- **JS hooks:** Use `data-*` for behavior and classes for styling. Treat `data-*` as a markup↔JS contract (critical for CMS integration).
 
-## HTML Testing
+## Validation
 
-HTML validation ensures your markup follows web standards, improves accessibility, SEO, and cross-browser compatibility. Always validate your HTML before deploying to production.
+Validate HTML before production. Fix errors first, then warnings.
 
 ### W3C Nu HTML Checker
 
-The official W3C validator checks HTML5 markup for errors and warnings. Enter a URL below to validate your page.
+The official validator for HTML5 markup.
 
 **W3C Nu HTML Checker:** [validator.w3.org/nu](https://validator.w3.org/nu/)
 
@@ -660,7 +664,7 @@ The official W3C validator checks HTML5 markup for errors and warnings. Enter a 
 
 ### Understanding validation results
 
-- **Errors** - Must be fixed, they break HTML standards and can cause rendering issues
-- **Warnings** - Should be addressed, they indicate potential problems or deprecated practices
-- **Info** - Helpful suggestions for improvement, not critical
+- **Errors** - Must fix
+- **Warnings** - Should fix
+- **Info** - Optional
 

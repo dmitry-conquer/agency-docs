@@ -13,7 +13,7 @@ hero:
   <h2><a href="/html">HTML</a></h2>
   <ul>
     <li><a href="/html#semantic-html">Semantic HTML</a></li>
-    <li><a href="/html#head">Head</a></li>
+    <li><a href="/html#document-head">Document head</a></li>
     <li><a href="/html#headings">Headings</a></li>
     <li><a href="/html#links--navigation">Links & Navigation</a></li>
     <li><a href="/html#buttons-vs-links">Buttons vs Links</a></li>
@@ -22,8 +22,8 @@ hero:
     <li><a href="/html#tables">Tables</a></li>
     <li><a href="/html#images">Images</a></li>
     <li><a href="/html#video">Video</a></li>
-    <li><a href="/html#optimization">Optimization</a></li>
-    <li><a href="/html#html-testing">HTML Testing</a></li>
+    <li><a href="/html#performance-basics">Performance basics</a></li>
+    <li><a href="/html#validation">Validation</a></li>
   </ul>
 </div>
 
