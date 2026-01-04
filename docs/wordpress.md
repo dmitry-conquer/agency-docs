@@ -500,28 +500,6 @@ Minimum plugins. Everything that can be done with code should be done with code.
 
 **Important:** Use of plugins that are not included in the mandatory or allowed lists must be discussed in advance with the web department director or an authorized person.
 
-## Deployment Protocol
-
-### Handover checklist
-
-Pre-handover checks.
-
-- **Debug:** Ensure `WP_DEBUG` is set to `false` in `wp-config.php`.
-- **Disable file editor:** Add `define('DISALLOW_FILE_EDIT', true);` to `wp-config.php`.
-- **Search Engines:** Enable indexing ("Settings → Reading → Discourage search engines" — uncheck the box).
-- **Permalinks:** Re-save permalink settings (common 404 error fix).
-- **404/Redirects:** Verify real 404 status on missing pages and validate redirects (Redirection plugin or server rules).
-- **Admin Email:** Change administrator email to client's email.
-- **Forms:** Send test submission from all forms.
-- **reCAPTCHA/SMTP:** If forms are hosted on the site, verify reCAPTCHA works and SMTP is configured and delivering.
-- **Dev Plugins:** Remove or disable all dev-only plugins (Query Monitor, Show Current Template, etc.).
-- **Security:** Remove test data, check file permissions, ensure no debug information is exposed.
-- **Performance:** Clear cache, optimize database, check page load speed.
-- **SSL:** Verify SSL certificate is properly configured and working.
-- **Testing:** Test on different devices and browsers, check for broken links (404 errors).
-- **Backup:** Create a full backup of the site before going live.
-- **Comments:** All comments must be disabled on the site. Users should not be able to leave comments.
-
 ## Email Delivery
 
 ### JotForm
@@ -543,6 +521,28 @@ If the client wants forms on their own website rather than on a third-party serv
 - **Mandatory:** Install an SMTP plugin (`WP Mail SMTP`).
 - The SMTP service is chosen based on client preferences and requirements.
 
+## Deployment Protocol
+
+### Handover checklist
+
+- **Debug:** Ensure `WP_DEBUG` is set to `false` in `wp-config.php`.
+- **Disable file editor:** Add `define('DISALLOW_FILE_EDIT', true);` to `wp-config.php`.
+- **Search Engines:** Enable indexing ("Settings → Reading → Discourage search engines" — uncheck the box).
+- **Permalinks:** Re-save permalink settings (common 404 error fix).
+- **404/Redirects:** Verify real 404 status on missing pages and validate redirects (Redirection plugin or server rules).
+- **Admin Email:** Change administrator email to client's email.
+- **Forms:** Send test submission from all forms.
+- **reCAPTCHA/SMTP:** If forms are hosted on the site, verify reCAPTCHA works and SMTP is configured and delivering.
+- **Dev Plugins:** Remove or disable all dev-only plugins (Query Monitor, Show Current Template, etc.).
+- **Security:** Remove test data, check file permissions, ensure no debug information is exposed.
+- **Performance:** Clear cache, optimize database, check page load speed.
+- **SSL:** Verify SSL certificate is properly configured and working.
+- **Testing:** Test on different devices and browsers, check for broken links (404 errors).
+- **Admin:** Admin login works and no unexpected users/plugins exist
+- **Core Web Vitals:** Basic performance check (Core Web Vitals / PageSpeed sanity)
+- **Backup:** Create a full backup of the site before going live.
+- **Comments:** All comments must be disabled on the site. Users should not be able to leave comments.
+
 ## Maintenance
 
 ### Updates
@@ -553,15 +553,4 @@ Plugins, themes, and WordPress core must be kept up to date.
 
 - Updates to any site components must be performed only after a full site backup. Create a complete backup (files and database) before any updates.
 - **Hosting-level backups:** Backups must be performed at the hosting level, not through WordPress plugins. Hosting-level backups are more reliable, faster, and don't consume server resources or database space. They also provide better recovery options and are independent of WordPress functionality.
-
-### Verify Site Functionality
-
-Verify site functionality after updates are complete.
-
-- Home page renders correctly
-- Forms submit and deliver emails
-- Search works (if used)
-- 404 page returns HTTP 404
-- Admin login works and no unexpected users/plugins exist
-- Basic performance check (Core Web Vitals / PageSpeed sanity)
 

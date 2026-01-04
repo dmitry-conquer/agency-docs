@@ -69,8 +69,8 @@ hero:
     <li><a href="/wordpress#acf-pro-integration">ACF PRO Integration</a></li>
     <li><a href="/wordpress#security-data-sanitization">Security: Data Sanitization</a></li>
     <li><a href="/wordpress#plugins-policy">Plugins Policy</a></li>
-    <li><a href="/wordpress#deployment-protocol">Deployment Protocol</a></li>
     <li><a href="/wordpress#email-delivery">Email Delivery</a></li>
+    <li><a href="/wordpress#deployment-protocol">Deployment Protocol</a></li>
     <li><a href="/wordpress#maintenance">Maintenance</a></li>
   </ul>
 </div>
