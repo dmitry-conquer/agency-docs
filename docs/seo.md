@@ -41,10 +41,11 @@ Disallow: /wp-activate.php
 Disallow: /xmlrpc.php
 Disallow: /trackback/
 Disallow: /*/trackback/
-Disallow: /*/feed/
 Disallow: /comments/feed/
 Disallow: /readme.html
 Disallow: /license.txt
+Disallow: /?author=
+Disallow: /author/
 Sitemap: https://your-domain.com/sitemap_index.xml
 ```
 
